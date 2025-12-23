@@ -9,8 +9,20 @@ CREATE TABLE verbs
 (
     id SERIAL PRIMARY KEY NOT NULL,
     greek VARCHAR(50) NOT NULL UNIQUE,
-    french VARCHAR(50) NOT NULL UNIQUE,
     "group" VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE translations
+(
+    id SERIAL PRIMARY KEY NOT NULL,
+    verb_id INT NOT NULL,
+    language VARCHAR(50) NOT NULL,
+    translation VARCHAR(50) NOT NULL,
+
+    CONSTRAINT fk_translations_verbs
+        foreign key (verb_id)
+        REFERENCES verbs(id)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE conjugations
@@ -35,6 +47,7 @@ CREATE TABLE user_verbs
     user_id INT NOT NULL,
     verb_id INT NOT NULL,
     status VARCHAR(20),
+    date_added TIMESTAMP DEFAULT NOW(),
 
     CONSTRAINT fk_user_verbs_users
         FOREIGN KEY (user_id)
