@@ -4,3 +4,5 @@
 - **CONJUGATION** (<u>tense</u>, mood, voice, person, form, _#greek_)
 - **USER** (<u>username</u>, password)
 - **VERB** (<u>greek</u>, french, group)
+
+<!-- A modifier (pas de clefs primaires ok, ni id autogénré) -->
