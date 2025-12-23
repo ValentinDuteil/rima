@@ -1,0 +1,7 @@
+USER: username, password
+ADD_TO_DICT, 0N USER, 0N VERB: status, date_added
+VERB: greek, french, group
+
+HAS, 11 CONJUGATION, 1N VERB
+:
+CONJUGATION: tense, mood, voice, person, form

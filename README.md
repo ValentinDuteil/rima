@@ -82,6 +82,8 @@ Créer un outil pédagogique pour mémoriser les conjugaisons grecques modernes,
 - Un utilisateur peut avoir plusieurs verbes dans son dictionnaire (N:N)
 - Un verbe a plusieurs conjugaisons (1:N)
 
+![MCD](docs/MCD.svg)
+
 ---
 
 ## 📋 PHASE 1 : MVP - Dictionnaire Personnel

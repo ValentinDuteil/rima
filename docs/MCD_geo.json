@@ -1,0 +1,25 @@
+{
+  "width": 353,
+  "height": 254,
+  "cx": [
+    [ "USER", 48 ],
+    [ "ADD_TO_DICT", 174 ],
+    [ "VERB", 292 ],
+    [ "HAS", 48 ],
+    [ "CONJUGATION", 292 ]
+  ],
+  "cy": [
+    [ "USER", 53 ],
+    [ "ADD_TO_DICT", 53 ],
+    [ "VERB", 53 ],
+    [ "HAS", 183 ],
+    [ "CONJUGATION", 183 ]
+  ],
+  "shift": [
+    [ "ADD_TO_DICT,USER,0", 0 ],
+    [ "ADD_TO_DICT,VERB,0", 0 ],
+    [ "HAS,CONJUGATION,0", 0 ],
+    [ "HAS,VERB,0", 0 ]
+  ],
+  "ratio": []
+}
