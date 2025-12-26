@@ -100,9 +100,11 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'μιλάω'), 'present', 'indicative', 'active', '1s', 'μιλάω'),
 ((SELECT id FROM verbs WHERE greek = 'μιλάω'), 'present', 'indicative', 'active', '2s', 'μιλάς'),
 ((SELECT id FROM verbs WHERE greek = 'μιλάω'), 'present', 'indicative', 'active', '3s', 'μιλάει'),
+((SELECT id FROM verbs WHERE greek = 'μιλάω'), 'present', 'indicative', 'active', '3s', 'μιλά'),
 ((SELECT id FROM verbs WHERE greek = 'μιλάω'), 'present', 'indicative', 'active', '1p', 'μιλάμε'),
 ((SELECT id FROM verbs WHERE greek = 'μιλάω'), 'present', 'indicative', 'active', '2p', 'μιλάτε'),
-((SELECT id FROM verbs WHERE greek = 'μιλάω'), 'present', 'indicative', 'active', '3p', 'μιλάνε');
+((SELECT id FROM verbs WHERE greek = 'μιλάω'), 'present', 'indicative', 'active', '3p', 'μιλάνε'),
+((SELECT id FROM verbs WHERE greek = 'μιλάω'), 'present', 'indicative', 'active', '3p', 'μιλούν');
 
 -- αγαπάω (aimer)
 INSERT INTO verbs (greek, "group") VALUES ('αγαπάω', 'B1');
@@ -112,9 +114,11 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '1s', 'αγαπάω'),
 ((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '2s', 'αγαπάς'),
 ((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3s', 'αγαπάει'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3s', 'αγαπά'),
 ((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '1p', 'αγαπάμε'),
 ((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '2p', 'αγαπάτε'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3p', 'αγαπάνε');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3p', 'αγαπάνε'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3p', 'αγαπούν');
 
 -- ζητάω (demander)
 INSERT INTO verbs (greek, "group") VALUES ('ζητάω', 'B1');
@@ -124,9 +128,11 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'ζητάω'), 'present', 'indicative', 'active', '1s', 'ζητάω'),
 ((SELECT id FROM verbs WHERE greek = 'ζητάω'), 'present', 'indicative', 'active', '2s', 'ζητάς'),
 ((SELECT id FROM verbs WHERE greek = 'ζητάω'), 'present', 'indicative', 'active', '3s', 'ζητάει'),
+((SELECT id FROM verbs WHERE greek = 'ζητάω'), 'present', 'indicative', 'active', '3s', 'ζητά'),
 ((SELECT id FROM verbs WHERE greek = 'ζητάω'), 'present', 'indicative', 'active', '1p', 'ζητάμε'),
 ((SELECT id FROM verbs WHERE greek = 'ζητάω'), 'present', 'indicative', 'active', '2p', 'ζητάτε'),
-((SELECT id FROM verbs WHERE greek = 'ζητάω'), 'present', 'indicative', 'active', '3p', 'ζητάνε');
+((SELECT id FROM verbs WHERE greek = 'ζητάω'), 'present', 'indicative', 'active', '3p', 'ζητάνε'),
+((SELECT id FROM verbs WHERE greek = 'ζητάω'), 'present', 'indicative', 'active', '3p', 'ζητούν');
 
 -- σταματάω (s'arrêter)
 INSERT INTO verbs (greek, "group") VALUES ('σταματάω', 'B1');
@@ -136,9 +142,11 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'σταματάω'), 'present', 'indicative', 'active', '1s', 'σταματάω'),
 ((SELECT id FROM verbs WHERE greek = 'σταματάω'), 'present', 'indicative', 'active', '2s', 'σταματάς'),
 ((SELECT id FROM verbs WHERE greek = 'σταματάω'), 'present', 'indicative', 'active', '3s', 'σταματάει'),
+((SELECT id FROM verbs WHERE greek = 'σταματάω'), 'present', 'indicative', 'active', '3s', 'σταματά'),
 ((SELECT id FROM verbs WHERE greek = 'σταματάω'), 'present', 'indicative', 'active', '1p', 'σταματάμε'),
 ((SELECT id FROM verbs WHERE greek = 'σταματάω'), 'present', 'indicative', 'active', '2p', 'σταματάτε'),
-((SELECT id FROM verbs WHERE greek = 'σταματάω'), 'present', 'indicative', 'active', '3p', 'σταματάνε');
+((SELECT id FROM verbs WHERE greek = 'σταματάω'), 'present', 'indicative', 'active', '3p', 'σταματάνε'),
+((SELECT id FROM verbs WHERE greek = 'σταματάω'), 'present', 'indicative', 'active', '3p', 'σταματούν');
 
 -- πονάω (avoir mal)
 INSERT INTO verbs (greek, "group") VALUES ('πονάω', 'B1');
@@ -148,9 +156,11 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'πονάω'), 'present', 'indicative', 'active', '1s', 'πονάω'),
 ((SELECT id FROM verbs WHERE greek = 'πονάω'), 'present', 'indicative', 'active', '2s', 'πονάς'),
 ((SELECT id FROM verbs WHERE greek = 'πονάω'), 'present', 'indicative', 'active', '3s', 'πονάει'),
+((SELECT id FROM verbs WHERE greek = 'πονάω'), 'present', 'indicative', 'active', '3s', 'πονά'),
 ((SELECT id FROM verbs WHERE greek = 'πονάω'), 'present', 'indicative', 'active', '1p', 'πονάμε'),
 ((SELECT id FROM verbs WHERE greek = 'πονάω'), 'present', 'indicative', 'active', '2p', 'πονάτε'),
-((SELECT id FROM verbs WHERE greek = 'πονάω'), 'present', 'indicative', 'active', '3p', 'πονάνε');
+((SELECT id FROM verbs WHERE greek = 'πονάω'), 'present', 'indicative', 'active', '3p', 'πονάνε'),
+((SELECT id FROM verbs WHERE greek = 'πονάω'), 'present', 'indicative', 'active', '3p', 'πονούν');
 
 -- συναντάω (rencontrer)
 INSERT INTO verbs (greek, "group") VALUES ('συναντάω', 'B1');
@@ -160,9 +170,11 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'συναντάω'), 'present', 'indicative', 'active', '1s', 'συναντάω'),
 ((SELECT id FROM verbs WHERE greek = 'συναντάω'), 'present', 'indicative', 'active', '2s', 'συναντάς'),
 ((SELECT id FROM verbs WHERE greek = 'συναντάω'), 'present', 'indicative', 'active', '3s', 'συναντάει'),
+((SELECT id FROM verbs WHERE greek = 'συναντάω'), 'present', 'indicative', 'active', '3s', 'συναντά'),
 ((SELECT id FROM verbs WHERE greek = 'συναντάω'), 'present', 'indicative', 'active', '1p', 'συναντάμε'),
 ((SELECT id FROM verbs WHERE greek = 'συναντάω'), 'present', 'indicative', 'active', '2p', 'συναντάτε'),
-((SELECT id FROM verbs WHERE greek = 'συναντάω'), 'present', 'indicative', 'active', '3p', 'συναντάνε');
+((SELECT id FROM verbs WHERE greek = 'συναντάω'), 'present', 'indicative', 'active', '3p', 'συναντάνε'),
+((SELECT id FROM verbs WHERE greek = 'συναντάω'), 'present', 'indicative', 'active', '3p', 'συναντούν');
 
 -- ========================================
 -- GROUPE B2 (7 verbes)
