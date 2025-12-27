@@ -1,5 +1,12 @@
 import pool from '../db/connection.js'
 
+// GROUP BY nécessaire car on utilise MIN() pour gérer les verbes avec plusieurs traductions
+// GROUP BY obligatoire pour éliminer les doublons (un verbe peut avoir plusieurs traductions)
+
+// Tri alphabétique français avec :
+// - REGEXP_REPLACE pour ignorer "s'" au début (ex: "s'arrêter" → "arrêter")
+// - COLLATE "fr-FR-x-icu" pour respecter l'ordre alphabétique français (accents intégrés)
+
 export async function getAllVerbs(req, res, next) {
     try {
         let sql = `
