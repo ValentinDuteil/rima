@@ -2,6 +2,7 @@ import express from 'express';
 import pool from './db/connection.js';
 
 import routes from './routes/index.js';
+import { errorHandler } from './middlewares/errorHandler.js';
 
 const app = express();
 const PORT = process.env.PORT;
@@ -12,6 +13,7 @@ app.get('/', (req, res) => {
   res.json({ message: 'Backend is running! 🚀' });
 });
 
+app.use(errorHandler);
 
 async function startServer(){
   try {
