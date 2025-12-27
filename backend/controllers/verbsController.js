@@ -2,19 +2,23 @@ import pool from '../db/connection.js'
 
 export async function getAllVerbs(req, res, next) {
     try {
-        let sql = `SELECT * FROM verbs`;
+        let sql = 'SELECT DISTINCT v.*, t.translation FROM verbs v LEFT JOIN translations t ON v.id = t.verb_id';
         const params = [];
 
         if (req.query.group) {
-            sql += ' WHERE "group" = $1';
+            sql += ' WHERE v."group" = $1';
             params.push(req.query.group);
         }
 
         if (req.query.sort === 'greek') {
-            sql += ' ORDER BY greek'
+            sql += ' ORDER BY v.greek'
         }
-        
-        const allVerbs = await pool.query(`SELECT * FROM verbs`);
+
+        if (req.query.sort === 'french') {
+            sql += ' ORDER BY t.translation'
+        }
+
+        const allVerbs = await pool.query(sql, params);
         res.json(allVerbs.rows)
     } catch (error) {
         next(error);
