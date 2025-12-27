@@ -1,9 +1,12 @@
 import express from 'express';
 import pool from './db/connection.js';
 
+import routes from './routes/index.js';
+
 const app = express();
 const PORT = process.env.PORT;
 
+app.use('/api', routes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'Backend is running! 🚀' });
