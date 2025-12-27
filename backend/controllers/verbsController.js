@@ -15,7 +15,7 @@ export async function getVerbById(req, res) {
         const id = req.params.id;
         const verb = await pool.query(`SELECT * FROM verbs WHERE id = $1`, [id]);
 
-        if (verb.rows === undefined || verb.rows.length === 0) {
+        if (verb.rows.length === 0) {
             return res.status(404).json({ error: 'Verbe non trouvé' });
         } return res.json(verb.rows);
     } catch (error) {
@@ -46,4 +46,18 @@ export async function searchVerbs(req, res) {
         console.error(error);
         res.status(500).json({ error: 'Erreur Serveur' });
     }
+}
+
+export async function getVerbConjugations(req, res) {
+    try {
+        const id = req.params.id;
+        const verb = await pool.query(`SELECT * FROM conjugations WHERE verb_id = $1`, [id]);
+    
+        if (verb.rows.length === 0) {
+            return res.status(404).json({ error: 'Verbe non trouvé' });
+        } return res.json(verb.rows);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Erreur Serveur' });
+        }
 }
