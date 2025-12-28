@@ -11,3 +11,12 @@
         <p>{verb.greek}</p>
     {/each}
 {/if}
+
+<style>
+  .error {
+    color: var(--danger);
+    padding: var(--spacing-md);
+    background: #ffe6e6;
+    border-radius: var(--radius-sm);
+  }
+</style>
