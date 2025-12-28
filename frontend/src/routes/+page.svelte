@@ -8,7 +8,7 @@
   <p class="error">{data.error}</p>
 {:else}
     {#each data.verbs as verb}
-        <p>{verb.greek}</p>
+        <p>{verb.greek} - {verb.translation}</p>
     {/each}
 {/if}
 
