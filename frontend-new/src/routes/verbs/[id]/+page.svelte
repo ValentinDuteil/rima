@@ -1,1 +1,0 @@
-<h1>Détails du verbe</h1>
