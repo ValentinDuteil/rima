@@ -23,6 +23,10 @@
         return groups;
     }
 
+    function filterByConjugationGroup() {
+        const groups = {};
+    }
+
     const verbGroups = groupByFirstLetter(data.verbs, data.currentSort);
     // Si verbGroups = { "Α": [...], "Π": [...], "Σ": [...] }
     const letters = Object.keys(verbGroups).sort(); // → ["Α", "Π", "Σ"]
@@ -47,6 +51,7 @@
         >
             Tri Grec
         </a>
+        <!--{data.currentSort} = Variable Svelte (sera remplacée par "greek" ou "french")-->
         <div class="filters">
             <span>Groupes :</span>
             <a href="/?sort={data.currentSort}&group=A">A</a>
@@ -151,6 +156,28 @@
 
     .letter-separator:first-child {
         margin-top: 0;
+    }
+
+    .filters {
+        display: flex;
+        gap: var(--spacing-sm);
+        align-items: center;
+        margin-top: var(--spacing-md);
+    }
+
+    .filters a {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        border: 1px solid var(--text-light);
+        border-radius: var(--radius-sm);
+        color: var(--text-dark);
+        text-decoration: none;
+        font-size: var(--font-size-sm);
+        transition: all 0.2s;
+    }
+
+    .filters a:hover {
+        background: var(--text-light);
+        color: white;
     }
 
     .error {
