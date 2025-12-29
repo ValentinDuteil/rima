@@ -1,3 +1,20 @@
+<script>
+  import { PUBLIC_API_URL } from '$env/static/public';
+
+  let searchTerm = $state('');
+  let searchResults = $state([]);
+  let showDropdown = $state(false);
+
+function handleSearch() {
+  if (searchTerm === '') {
+    searchResults = [];
+    showDropdown = false;
+    return;
+  }
+  const url = `${PUBLIC_API_URL}/api/verbs/search?q=${searchTerm}`;
+}
+</script>
+
 <header>
   <div class="container">
     <a href="/" class="logo">RIMA</a>
