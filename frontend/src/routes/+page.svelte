@@ -35,6 +35,7 @@
             href="/?sort=french"
             class="btn-sort"
             class:active={data.currentSort === "french"}
+            data-sveltekit-reload
         >
             Tri Français
         </a>
@@ -42,6 +43,7 @@
             href="/?sort=greek"
             class="btn-sort"
             class:active={data.currentSort === "greek"}
+            data-sveltekit-reload
         >
             Tri Grec
         </a>
