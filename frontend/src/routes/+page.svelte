@@ -46,11 +46,14 @@
     <p class="error">{data.error}</p>
 {:else}
     <div class="verbs-list">
-        {#each data.verbs as verb}
-            <div class="verb-item">
-                <span class="greek">{verb.greek}</span>
-                <span class="translation">{verb.translation}</span>
-            </div>
+        {#each letters as letter}
+        <div class="letter-separator">─── {letter} ───</div>
+            {#each verbGroups[letter] as verb}
+                <div class="verb-item">
+                    <span class="greek">{verb.greek}</span>
+                    <span class="translation">{verb.translation}</span>
+                </div>
+            {/each}
         {/each}
     </div>
 {/if}

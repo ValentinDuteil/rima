@@ -9,24 +9,24 @@ Application web pour apprendre et s'exercer aux conjugaisons en grec moderne, av
 ## 📋 PHASES DU PROJET
 
 ### ✅ PHASE 0 : Préparation & Conception
-- [ ] **Étape 0.1 : Analyse des besoins**
+- [x] **Étape 0.1 : Analyse des besoins**
   - Définir le scope MVP
   - Lister les fonctionnalités core vs futures
   - Valider les 26 verbes de départ
 
-- [ ] **Étape 0.2 : Choix de la stack technique**
-  - Frontend : Svelte + Vite
+- [x] **Étape 0.2 : Choix de la stack technique**
+  - Frontend : SvelteKit + Vite
   - Backend : Node.js + Express
   - BDD : PostgreSQL + pg
   - Auth : JWT
 
-- [ ] **Étape 0.3 : Conception de la base de données**
+- [x] **Étape 0.3 : Conception de la base de données**
   - Identifier les entités (verbes, utilisateurs, dictionnaire personnel)
   - Créer le MCD avec Mocodo
   - Générer le MLD
   - Écrire le schéma SQL
 
-- [ ] **Étape 0.4 : Architecture du projet**
+- [x] **Étape 0.4 : Architecture du projet**
   - Définir la structure des dossiers backend
   - Définir la structure des dossiers frontend
   - Créer les fichiers de configuration (.gitignore, package.json...)
@@ -36,29 +36,29 @@ Application web pour apprendre et s'exercer aux conjugaisons en grec moderne, av
 ### 🎯 PHASE 1 : MVP - Dictionnaire Personnel (Présent uniquement, voix active)
 
 #### **1. Setup du projet**
-- [ ] **Étape 1.1 : Initialisation backend**
+- [x] **Étape 1.1 : Initialisation backend**
   - Créer le dossier `backend/`
   - `npm init` + installer dépendances (express, pg, bcrypt, jsonwebtoken, cors, dotenv)
   - Créer `server.js`
   - Tester serveur basique sur port 3000
 
 - [ ] **Étape 1.2 : Initialisation frontend**
-  - Créer projet Svelte avec Vite
+  - Créer projet SvelteKit avec Vite
   - Structure des dossiers (components, stores, utils)
   - Tester page d'accueil basique
 
-- [ ] **Étape 1.3 : Configuration PostgreSQL**
+- [x] **Étape 1.3 : Configuration PostgreSQL**
   - Installer PostgreSQL
   - Créer la base de données `conjugaison_grec`
   - Configurer la connexion dans `backend/db/connection.js`
   - Tester la connexion
 
 #### **2. Base de données**
-- [ ] **Étape 2.1 : Création des tables**
+- [x] **Étape 2.1 : Création des tables**
   - Exécuter le schéma SQL (users, verbs, conjugations, user_verbs)
   - Vérifier la création des tables
 
-- [ ] **Étape 2.2 : Insertion des verbes MVP**
+- [x] **Étape 2.2 : Insertion des verbes MVP**
   - Rentrer le verbe être (catégorie spéciale)
   - Rentrer les 5 verbes groupe A
   - Rentrer les 6 verbes groupe B1
@@ -66,7 +66,7 @@ Application web pour apprendre et s'exercer aux conjugaisons en grec moderne, av
   - Rentrer les 7 verbes groupe A/B
   - Total : 26 verbes avec leurs conjugaisons au présent
 
-- [ ] **Étape 2.3 : Vérification des données**
+- [x] **Étape 2.3 : Vérification des données**
   - Tester les requêtes SELECT
   - Vérifier l'intégrité des données
 
@@ -77,7 +77,7 @@ Application web pour apprendre et s'exercer aux conjugaisons en grec moderne, av
   - Middleware de vérification JWT
   - Tester avec Postman/Thunder Client
 
-- [ ] **Étape 3.2 : Routes des verbes**
+- [x] **Étape 3.2 : Routes des verbes**
   - Route GET `/api/verbs` (liste tous les verbes)
   - Route GET `/api/verbs/:id` (détails d'un verbe)
   - Route GET `/api/verbs/search?q=...` (recherche FR/GR)
