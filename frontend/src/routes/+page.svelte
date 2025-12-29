@@ -1,5 +1,25 @@
 <script>
     let { data } = $props();
+
+    //Placer des séparateurs pour faciliter le parcours de la liste de verbes
+    function groupByFirstLetter(verbs) {
+        const groups = {};
+
+        verbs.forEach(verb => {
+            let firstLetter = verb.greek[0].toUpperCase();
+
+            if (!groups[firstLetter]) {
+                groups[firstLetter] = [];
+            }
+            groups[firstLetter].push(verb);
+        });
+    return groups;
+    }
+
+    const verbGroups = groupByFirstLetter(data.verbs);
+    // Si verbGroups = { "Α": [...], "Π": [...], "Σ": [...] }
+    const letters = Object.keys(verbGroups).sort(); // → ["Α", "Π", "Σ"]
+
 </script>
 
 <div class="header-controls">
