@@ -23,15 +23,11 @@
         return groups;
     }
 
-    function filterByConjugationGroup() {
-        const groups = {};
-    }
-
     const verbGroups = groupByFirstLetter(data.verbs, data.currentSort);
     // Si verbGroups = { "Α": [...], "Π": [...], "Σ": [...] }
     const letters = Object.keys(verbGroups).sort((a, b) =>
-        a.localeCompare(b, 'fr-FR')
-        ); // → ["Α", "Π", "Σ"]
+        a.localeCompare(b, "fr-FR"),
+    ); // → ["Α", "Π", "Σ"]
 </script>
 
 <div class="header-controls">
@@ -56,10 +52,18 @@
         <!--{data.currentSort} = Variable Svelte (sera remplacée par "greek" ou "french")-->
         <div class="filters">
             <span>Groupes :</span>
-            <a href="/?sort={data.currentSort}&group=A" data-sveltekit-reload>A</a>
-            <a href="/?sort={data.currentSort}&group=B1" data-sveltekit-reload>B1</a>
-            <a href="/?sort={data.currentSort}&group=B2" data-sveltekit-reload>B2</a>
-            <a href="/?sort={data.currentSort}&group=A/B" data-sveltekit-reload>A/B</a>
+            <a href="/?sort={data.currentSort}&group=A" data-sveltekit-reload
+                >A</a
+            >
+            <a href="/?sort={data.currentSort}&group=B1" data-sveltekit-reload
+                >B1</a
+            >
+            <a href="/?sort={data.currentSort}&group=B2" data-sveltekit-reload
+                >B2</a
+            >
+            <a href="/?sort={data.currentSort}&group=A/B" data-sveltekit-reload
+                >A/B</a
+            >
             <a href="/?sort={data.currentSort}" data-sveltekit-reload>Tous</a>
         </div>
     </div>
@@ -73,7 +77,10 @@
             <div class="letter-separator">─── {letter} ───</div>
             {#each verbGroups[letter] as verb}
                 <div class="verb-item">
-                    <span class="greek">{verb.greek}</span>
+                    <div class="verb-left">
+                        <input type="checkbox" class="verb-checkbox" />
+                        <span class="greek">{verb.greek}</span>
+                    </div>
                     <span class="translation">{verb.translation}</span>
                 </div>
             {/each}
@@ -123,12 +130,26 @@
         margin: 0 auto;
     }
 
+    .verb-checkbox {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        accent-color: var(--success);
+    }
+
     .verb-item {
         display: flex;
+        align-items: center;
         justify-content: space-between;
         gap: var(--spacing-md);
         padding: var(--spacing-sm);
         border-bottom: 1px solid #eee;
+    }
+
+    .verb-left {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
     }
 
     .verb-item:last-child {
@@ -138,13 +159,10 @@
     .greek {
         font-weight: bold;
         color: var(--primary);
-        min-width: 150px;
-        text-align: left;
     }
 
     .translation {
         color: var(--text-light);
-        text-align: right;
     }
 
     .letter-separator {
