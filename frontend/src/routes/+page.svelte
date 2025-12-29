@@ -8,12 +8,12 @@
         verbs.forEach((verb) => {
             let firstLetter;
 
-                //Utilise la langue du tri
-                if (sortType === 'greek') {
-                    firstLetter = verb.greek[0].toUpperCase();
-                } else {
-                    firstLetter = verb.translation[0].toUpperCase();
-                }
+            //Utilise la langue du tri
+            if (sortType === "greek") {
+                firstLetter = verb.greek[0].toUpperCase();
+            } else {
+                firstLetter = verb.translation[0].toUpperCase();
+            }
 
             if (!groups[firstLetter]) {
                 groups[firstLetter] = [];
@@ -47,6 +47,14 @@
         >
             Tri Grec
         </a>
+        <div class="filters">
+            <span>Groupes :</span>
+            <a href="/?sort={data.currentSort}&group=A">A</a>
+            <a href="/?sort={data.currentSort}&group=B1">B1</a>
+            <a href="/?sort={data.currentSort}&group=B2">B2</a>
+            <a href="/?sort={data.currentSort}&group=A/B">A/B</a>
+            <a href="/?sort={data.currentSort}">Tous</a>
+        </div>
     </div>
 </div>
 
