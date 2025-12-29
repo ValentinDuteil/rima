@@ -5,8 +5,14 @@ export async function load({ url }) {
     const API_URL = PUBLIC_API_URL || 'http://localhost:3000';
 
     const sortParam = url.searchParams.get('sort') || 'greek';
+    const groupParam = url.searchParams.get('group') || '';
 
-    const response = await fetch(`${API_URL}/api/verbs?sort=${sortParam}`);
+    let apiUrl = `${API_URL}/api/verbs?sort=${sortParam}`;
+    if (groupParam) {
+        apiUrl += `&group=${groupParam}`;
+    }
+    
+    const response = await fetch(apiUrl);
 
     if (!response.ok) {
       throw new Error('Erreur API');

@@ -54,11 +54,11 @@
         <!--{data.currentSort} = Variable Svelte (sera remplacée par "greek" ou "french")-->
         <div class="filters">
             <span>Groupes :</span>
-            <a href="/?sort={data.currentSort}&group=A">A</a>
-            <a href="/?sort={data.currentSort}&group=B1">B1</a>
-            <a href="/?sort={data.currentSort}&group=B2">B2</a>
-            <a href="/?sort={data.currentSort}&group=A/B">A/B</a>
-            <a href="/?sort={data.currentSort}">Tous</a>
+            <a href="/?sort={data.currentSort}&group=A" data-sveltekit-reload>A</a>
+            <a href="/?sort={data.currentSort}&group=B1" data-sveltekit-reload>B1</a>
+            <a href="/?sort={data.currentSort}&group=B2" data-sveltekit-reload>B2</a>
+            <a href="/?sort={data.currentSort}&group=A/B" data-sveltekit-reload>A/B</a>
+            <a href="/?sort={data.currentSort}" data-sveltekit-reload>Tous</a>
         </div>
     </div>
 </div>
