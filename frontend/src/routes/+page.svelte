@@ -2,24 +2,30 @@
     let { data } = $props();
 
     //Placer des séparateurs pour faciliter le parcours de la liste de verbes
-    function groupByFirstLetter(verbs) {
+    function groupByFirstLetter(verbs, sortType) {
         const groups = {};
 
-        verbs.forEach(verb => {
-            let firstLetter = verb.greek[0].toUpperCase();
+        verbs.forEach((verb) => {
+            let firstLetter;
+
+                //Utilise la langue du tri
+                if (sortType === 'greek') {
+                    firstLetter = verb.greek[0].toUpperCase();
+                } else {
+                    firstLetter = verb.translation[0].toUpperCase();
+                }
 
             if (!groups[firstLetter]) {
                 groups[firstLetter] = [];
             }
             groups[firstLetter].push(verb);
         });
-    return groups;
+        return groups;
     }
 
-    const verbGroups = groupByFirstLetter(data.verbs);
+    const verbGroups = groupByFirstLetter(data.verbs, data.currentSort);
     // Si verbGroups = { "Α": [...], "Π": [...], "Σ": [...] }
     const letters = Object.keys(verbGroups).sort(); // → ["Α", "Π", "Σ"]
-
 </script>
 
 <div class="header-controls">
@@ -47,7 +53,7 @@
 {:else}
     <div class="verbs-list">
         {#each letters as letter}
-        <div class="letter-separator">─── {letter} ───</div>
+            <div class="letter-separator">─── {letter} ───</div>
             {#each verbGroups[letter] as verb}
                 <div class="verb-item">
                     <span class="greek">{verb.greek}</span>
@@ -122,6 +128,19 @@
     .translation {
         color: var(--text-light);
         text-align: right;
+    }
+
+    .letter-separator {
+        text-align: center;
+        color: var(--secondary);
+        font-weight: bold;
+        font-size: var(--font-size-lg);
+        padding: var(--spacing-md) 0;
+        margin-top: var(--spacing-lg);
+    }
+
+    .letter-separator:first-child {
+        margin-top: 0;
     }
 
     .error {
