@@ -29,7 +29,9 @@
 
     const verbGroups = groupByFirstLetter(data.verbs, data.currentSort);
     // Si verbGroups = { "Α": [...], "Π": [...], "Σ": [...] }
-    const letters = Object.keys(verbGroups).sort(); // → ["Α", "Π", "Σ"]
+    const letters = Object.keys(verbGroups).sort((a, b) =>
+        a.localeCompare(b, 'fr-FR')
+        ); // → ["Α", "Π", "Σ"]
 </script>
 
 <div class="header-controls">
