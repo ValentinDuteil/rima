@@ -25,12 +25,23 @@
   <div class="container">
     <a href="/" class="logo">RIMA</a>
     <nav>
-      <input
-        type="search"
-        placeholder="Rechercher un verbe..."
-        bind:value={searchTerm}
-        oninput={handleSearch}
-      />
+      <div class="search-wrapper">
+        <input
+          type="search"
+          placeholder="Rechercher un verbe..."
+          bind:value={searchTerm}
+          oninput={handleSearch}
+        />
+        {#if showDropdown}
+          <div class="dropdown">
+            {#each searchResults as result}
+              <a href="/verbs/{result.id}">
+                {result.greek} - {result.translation}
+              </a>
+            {/each}
+          </div>
+        {/if}
+      </div>
       <button class="btn-connexion">Connexion</button>
       <button class="btn-menu">☰</button>
     </nav>
@@ -93,5 +104,39 @@
   .btn-menu {
     background: transparent;
     border: 1px solid var(--text-white);
+  }
+
+  .search-wrapper {
+    position: relative;
+  }
+
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+  }
+
+  .dropdown a {
+    display: block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--text-dark);
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+  }
+
+  .dropdown a:hover {
+    background: var(--bg-main);
+  }
+
+  .dropdown a:last-child {
+    border-bottom: none;
   }
 </style>

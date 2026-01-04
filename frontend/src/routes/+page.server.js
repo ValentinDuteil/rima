@@ -11,7 +11,7 @@ export async function load({ url }) {
     if (groupParam) {
         apiUrl += `&group=${groupParam}`;
     }
-    
+
     const response = await fetch(apiUrl);
 
     if (!response.ok) {

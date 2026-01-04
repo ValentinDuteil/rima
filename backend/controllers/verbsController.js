@@ -58,13 +58,14 @@ export async function searchVerbs(req, res, next) {
 
         const searchPattern = `%${q}%`;
         const verb = await pool.query(`
-            SELECT DISTINCT v.* 
+            SELECT DISTINCT v.id, v.greek, v."group", MIN(t.translation) as translation
             FROM verbs v
             LEFT JOIN translations t ON v.id = t.verb_id
             LEFT JOIN conjugations c ON v.id = c.verb_id
             WHERE v.greek ILIKE $1
                 OR t.translation ILIKE $1
                 OR c.form ILIKE $1
+            GROUP BY v.id, v.greek, v."group"
             `, [searchPattern])
         return res.json(verb.rows);
     } catch (error) {
