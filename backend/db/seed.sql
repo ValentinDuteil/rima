@@ -343,7 +343,7 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 -- φταίω (c'est de ma faute)
 INSERT INTO verbs (greek, "group") VALUES ('φταίω', 'A/B');
 INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'φταίω'), 'français', 'c''est de ma faute');
+VALUES ((SELECT id FROM verbs WHERE greek = 'φταίω'), 'français', 'être fautif');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'φταίω'), 'present', 'indicative', 'active', '1s', 'φταίω'),
 ((SELECT id FROM verbs WHERE greek = 'φταίω'), 'present', 'indicative', 'active', '2s', 'φταις'),

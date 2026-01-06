@@ -1,5 +1,13 @@
 <script>
     let { data } = $props();
+    let favoriteIds = $state([]);
+
+    if (typeof window !== "undefined") {
+    const stored = localStorage.getItem("favoriteVerbs");
+        if (stored) {
+        favoriteIds = JSON.parse(stored);
+        }
+    }
 
     //Placer des séparateurs pour faciliter le parcours de la liste de verbes
     function groupByFirstLetter(verbs, sortType) {
@@ -28,6 +36,16 @@
     const letters = Object.keys(verbGroups).sort((a, b) =>
         a.localeCompare(b, "fr-FR"),
     ); // → ["Α", "Π", "Σ"]
+
+    //Ajouter des verbes dans un dictionnaire personnel
+    function addToDict(verbId) {
+        if (favoriteIds.includes(verbId)) {
+            favoriteIds.splice(favoriteIds.indexOf(verbId), 1);
+        } else {
+            favoriteIds.push(verbId);
+        }
+        localStorage.setItem("favoriteVerbs", JSON.stringify(favoriteIds));
+    }
 </script>
 
 <div class="header-controls">

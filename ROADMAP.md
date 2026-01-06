@@ -42,7 +42,7 @@ Application web pour apprendre et s'exercer aux conjugaisons en grec moderne, av
   - Créer `server.js`
   - Tester serveur basique sur port 3000
 
-- [ ] **Étape 1.2 : Initialisation frontend**
+- [x] **Étape 1.2 : Initialisation frontend**
   - Créer projet SvelteKit avec Vite
   - Structure des dossiers (components, stores, utils)
   - Tester page d'accueil basique
@@ -98,7 +98,7 @@ Application web pour apprendre et s'exercer aux conjugaisons en grec moderne, av
   - Gestion du token JWT dans localStorage
   - Redirection si non connecté
 
-- [ ] **Étape 4.2 : Barre de recherche**
+- [x] **Étape 4.2 : Barre de recherche**
   - Composant `SearchBar.svelte`
   - Recherche en temps réel (français OU grec)
   - Affichage des résultats
