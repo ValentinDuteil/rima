@@ -45,7 +45,7 @@
             favoriteIds.push(verbId);
         }
         localStorage.setItem("favoriteVerbs", JSON.stringify(favoriteIds));
-    }
+}
 </script>
 
 <div class="header-controls">
@@ -96,7 +96,12 @@
             {#each verbGroups[letter] as verb}
                 <div class="verb-item">
                     <div class="verb-left">
-                        <input type="checkbox" class="verb-checkbox" />
+                        <input 
+                            type="checkbox" 
+                            class="verb-checkbox"
+                            checked={favoriteIds.includes(verb.id)}
+                            onclick={() => addToDict(verb.id)}
+                         />
                         <span class="greek">{verb.greek}</span>
                     </div>
                     <span class="translation">{verb.translation}</span>
