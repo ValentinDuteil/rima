@@ -1,10 +1,20 @@
 <script>
-  import { browser } from '$app/environment';
+  import { browser } from "$app/environment";
 
   let { favoriteVerbs, removeFromDict } = $props();
 
   let isOpen = $state(false);
-  let sidebarSort = $state('greek');
+  let sidebarSort = $state("greek");
+
+  let sortedVerbs = $derived(
+    [...favoriteVerbs].sort((a, b) => {
+      if (sidebarSort === 'greek') {
+        return a.greek.localeCompare(b.greek, "el");
+      } else if (sidebarSort === 'french') {
+        return a.translation.localeCompare(b.translation, "fr-FR");
+      }
+  })
+);
 
   function toggleSidebar() {
     isOpen = !isOpen;
@@ -14,63 +24,69 @@
     isOpen = false;
   }
 </script>
+
 {#if browser}
-<!-- Bouton flottant pour la sidebar -->
-<button class="sidebar-toggle" onclick={toggleSidebar}>
-  📚 {favoriteVerbs.length}
-</button>
-<!-- Overlay de la sidebar, ferme au clic extérieur -->
-<!-- svelte-ignore a11y_click_events_have_key_events -->
-<!-- svelte-ignore a11y_no_static_element_interactions -->
-<div class="sidebar-overlay" class:active={isOpen} onclick={closeSidebar}></div>
-<!-- Sidebar -->
-<aside class="sidebar" class:open={isOpen}>
-  <div class="sidebar-header">
-    <h2>Mes favoris</h2>
-    <div class="sort-buttons">
-      <button
-        class="sort-btn"
-        class:active={sidebarSort === 'french'}
-        onlick={() => sideBarSort = 'french'}
-      >
-      FR
-      </button>
+  <!-- Bouton flottant pour la sidebar -->
+  <button class="sidebar-toggle" onclick={toggleSidebar}>
+    📚 {favoriteVerbs.length}
+  </button>
+  <!-- Overlay de la sidebar, ferme au clic extérieur -->
+  <!-- svelte-ignore a11y_click_events_have_key_events -->
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
+  <div
+    class="sidebar-overlay"
+    class:active={isOpen}
+    onclick={closeSidebar}
+  ></div>
+  <!-- Sidebar -->
+  <aside class="sidebar" class:open={isOpen}>
+    <!-- Header avec titre et boutons -->
+    <div class="sidebar-header">
+      <h2>Mes favoris</h2>
       <div class="sort-buttons">
-      <button
-        class="sort-btn"
-        class:active={sidebarSort === 'greek'}
-        onlick={() => sideBarSort = 'greek'}
-      >
-      ΕΛ
-      </button>
+        <button
+          class="sort-btn"
+          class:active={sidebarSort === "french"}
+          onclick={() => (sidebarSort = "french")}
+        >
+          FR
+        </button>
+        <button
+          class="sort-btn"
+          class:active={sidebarSort === "greek"}
+          onclick={() => (sidebarSort = "greek")}
+        >
+          ΕΛ
+        </button>
+      </div>
     </div>
-  </div>
-  <div class="sidebar-content">
-    {#if favoriteVerbs.length === 0}
-      <p class="empty-state">
-        Tu n'as pas encore de verbes à ton dictionnaire ! 😉
-      </p>
-    {:else}
-      <ul>
-        {#each favoriteVerbs as verb}
-          <li>
-            <span class="greek">{verb.greek}</span>
-            <div class="right-group">
-              <span class="translation">{verb.translation}</span>
-              <button
-                class="delete-btn"
-                onclick={() => removeFromDict(verb.id)}
-                title="Retirer du dictionnaire"
-              >
-                🗑️
-              </button>
-            </div>
-          </li>
-        {/each}
-      </ul>
-    {/if}
-  </div>
-</aside>
+    <!-- Contenu -->
+    <div class="sidebar-content">
+      {#if favoriteVerbs.length === 0}
+        <p class="empty-state">
+          Tu n'as pas encore de verbes à ton dictionnaire ! 😉
+        </p>
+      {:else}
+        <ul>
+          {#each sortedVerbs as verb}
+            <li>
+              <span class="greek">{verb.greek}</span>
+              <div class="right-group">
+                <span class="translation">{verb.translation}</span>
+                <button
+                  class="delete-btn"
+                  onclick={() => removeFromDict(verb.id)}
+                  title="Retirer du dictionnaire"
+                >
+                  🗑️
+                </button>
+              </div>
+            </li>
+          {/each}
+        </ul>
+      {/if}
+    </div>
+  </aside>
 {/if}
 
 <style>
@@ -157,7 +173,32 @@
     color: white;
   }
 
-  
+  .sort-buttons {
+    display: flex;
+    gap: 4px;
+  }
+
+  .sort-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .sort-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .sort-btn.active {
+    background: white;
+    color: var(--primary);
+  }
+
   /* Contenu de la sidebar */
   .sidebar-content {
     flex: 1;
@@ -193,9 +234,9 @@
   }
 
   .right-group {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
   .greek {
