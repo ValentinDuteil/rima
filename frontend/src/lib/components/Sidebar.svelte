@@ -4,6 +4,7 @@
   let { favoriteVerbs, removeFromDict } = $props();
 
   let isOpen = $state(false);
+  let sidebarSort = $state('greek');
 
   function toggleSidebar() {
     isOpen = !isOpen;
@@ -67,7 +68,6 @@
     border-radius: 50%;
     width: 60px;
     height: 60px;
-    font-size: 1.5rem;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
@@ -136,7 +136,7 @@
 
   .sidebar-header h2 {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: white;
   }
 
@@ -144,7 +144,7 @@
   .sidebar-content {
     flex: 1;
     overflow-y: auto;
-    padding: var(--spacing-md);
+    padding: 0;
   }
 
   .empty-state {
@@ -162,11 +162,11 @@
 
   li {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: var(--spacing-md);
-    border-bottom: 1px solid #eee;
+    gap: 8px;
+    padding: 6px 16px;
     transition: background-color 0.2s ease;
+    font-size: 0.9 rem;
   }
 
   li:hover {
@@ -179,33 +179,34 @@
 
   .verb-info {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    gap: 8 px;
+    align-items: center;
+    flex: 1;
   }
 
   .greek {
-    font-weight: bold;
-    font-size: 1.2rem;
+    font-weight: 600;
     color: var(--primary);
+    min-width: 80px;
   }
 
   .translation {
     color: var(--text-light);
-    font-size: 0.9rem;
   }
 
   .delete-btn {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 1.3rem;
-    padding: 8px;
+    font-size: 1.1rem;
+    padding: 4px;
     border-radius: 50%;
     transition: all 0.2s ease;
+    opacity: 0.6;
   }
 
   .delete-btn:hover {
-    background: rgba(255, 0, 0, 0.1);
+    background: rgba(255, 0, 212, 0.13);
     transform: scale(1.2);
   }
 
