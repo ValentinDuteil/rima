@@ -1,11 +1,17 @@
 <script>
+    import Sidebar from '$lib/components/Sidebar.svelte';
+
     let { data } = $props();
     let favoriteIds = $state([]);
+    let verbs = $derived(data.verbs);
+    let favoriteVerbs = $derived(
+    favoriteIds.map((id) => verbs.find((verbe) => verbe.id === id))
+    );
 
     if (typeof window !== "undefined") {
-    const stored = localStorage.getItem("favoriteVerbs");
+        const stored = localStorage.getItem("favoriteVerbs");
         if (stored) {
-        favoriteIds = JSON.parse(stored);
+            favoriteIds = JSON.parse(stored);
         }
     }
 
@@ -31,11 +37,11 @@
         return groups;
     }
 
-    const verbGroups = groupByFirstLetter(data.verbs, data.currentSort);
+    const verbGroups = $derived(groupByFirstLetter(verbs, data.currentSort));
     // Si verbGroups = { "Α": [...], "Π": [...], "Σ": [...] }
-    const letters = Object.keys(verbGroups).sort((a, b) =>
+    const letters = $derived(Object.keys(verbGroups).sort((a, b) =>
         a.localeCompare(b, "fr-FR"),
-    ); // → ["Α", "Π", "Σ"]
+    )); // → ["Α", "Π", "Σ"]
 
     //Ajouter des verbes dans un dictionnaire personnel
     function addToDict(verbId) {
@@ -45,7 +51,7 @@
             favoriteIds.push(verbId);
         }
         localStorage.setItem("favoriteVerbs", JSON.stringify(favoriteIds));
-}
+    }
 </script>
 
 <div class="header-controls">
@@ -96,12 +102,12 @@
             {#each verbGroups[letter] as verb}
                 <div class="verb-item">
                     <div class="verb-left">
-                        <input 
-                            type="checkbox" 
+                        <input
+                            type="checkbox"
                             class="verb-checkbox"
                             checked={favoriteIds.includes(verb.id)}
                             onclick={() => addToDict(verb.id)}
-                         />
+                        />
                         <span class="greek">{verb.greek}</span>
                     </div>
                     <span class="translation">{verb.translation}</span>
@@ -111,6 +117,9 @@
     </div>
 {/if}
 
+<Sidebar 
+    favoriteVerbs={favoriteVerbs} 
+    removeFromDict={addToDict} />
 <style>
     .header-controls {
         display: flex;
