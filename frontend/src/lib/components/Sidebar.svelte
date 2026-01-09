@@ -27,6 +27,23 @@
 <aside class="sidebar" class:open={isOpen}>
   <div class="sidebar-header">
     <h2>Mes favoris</h2>
+    <div class="sort-buttons">
+      <button
+        class="sort-btn"
+        class:active={sidebarSort === 'french'}
+        onlick={() => sideBarSort = 'french'}
+      >
+      FR
+      </button>
+      <div class="sort-buttons">
+      <button
+        class="sort-btn"
+        class:active={sidebarSort === 'greek'}
+        onlick={() => sideBarSort = 'greek'}
+      >
+      ΕΛ
+      </button>
+    </div>
   </div>
   <div class="sidebar-content">
     {#if favoriteVerbs.length === 0}
@@ -140,6 +157,7 @@
     color: white;
   }
 
+  
   /* Contenu de la sidebar */
   .sidebar-content {
     flex: 1;
