@@ -1,20 +1,28 @@
 <script>
   import { browser } from "$app/environment";
+  import { groupByFirstLetter } from "$lib/utils/verbHelpers";
 
   let { favoriteVerbs, removeFromDict } = $props();
 
   let isOpen = $state(false);
   let sidebarSort = $state("greek");
 
+  // Tri les verbes dans l'ordre alphabétique grec ou français
   let sortedVerbs = $derived(
     [...favoriteVerbs].sort((a, b) => {
-      if (sidebarSort === 'greek') {
+      if (sidebarSort === "greek") {
         return a.greek.localeCompare(b.greek, "el");
-      } else if (sidebarSort === 'french') {
+      } else if (sidebarSort === "french") {
         return a.translation.localeCompare(b.translation, "fr-FR");
       }
-  })
-);
+    }),
+  );
+
+  // Groupement dynamique
+  let groupedVerbs = $derived(groupByFirstLetter(sortedVerbs, sidebarSort));
+  let letters = $derived(
+    Object.keys(groupedVerbs).sort((a, b) => a.localeCompare(b, "fr-FR")),
+  );
 
   function toggleSidebar() {
     isOpen = !isOpen;
@@ -68,20 +76,27 @@
         </p>
       {:else}
         <ul>
-          {#each sortedVerbs as verb}
-            <li>
-              <span class="greek">{verb.greek}</span>
-              <div class="right-group">
-                <span class="translation">{verb.translation}</span>
-                <button
-                  class="delete-btn"
-                  onclick={() => removeFromDict(verb.id)}
-                  title="Retirer du dictionnaire"
-                >
-                  🗑️
-                </button>
-              </div>
+          {#each letters as letter}
+            <!-- Séparateur graphique -->
+            <li class="letter-divider">
+              <div class="diamond"></div>
             </li>
+            <!-- Les verbes de cette lettre -->
+            {#each groupedVerbs[letter] as verb}
+              <li>
+                <span class="greek">{verb.greek}</span>
+                <div class="right-group">
+                  <span class="translation">{verb.translation}</span>
+                  <button
+                    class="delete-btn"
+                    onclick={() => removeFromDict(verb.id)}
+                    title="Retirer du dictionnaire"
+                  >
+                    🗑️
+                  </button>
+                </div>
+              </li>
+            {/each}
           {/each}
         </ul>
       {/if}
@@ -263,6 +278,20 @@
   .delete-btn:hover {
     background: rgba(255, 0, 212, 0.13);
     transform: scale(1.2);
+  }
+
+  .letter-divider {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+    border: none !important;
+  }
+
+  .diamond {
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    transform: rotate(45deg);
   }
 
   /* Responsive */
