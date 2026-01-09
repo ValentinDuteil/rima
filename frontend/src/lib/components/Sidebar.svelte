@@ -166,7 +166,7 @@
     align-items: center;
     padding: var(--spacing-md);
     border-bottom: 1px solid #eee;
-    transition: background 0.2s ease;
+    transition: background-color 0.2s ease;
   }
 
   li:hover {
