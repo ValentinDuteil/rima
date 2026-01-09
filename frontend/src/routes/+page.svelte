@@ -1,5 +1,6 @@
 <script>
     import Sidebar from '$lib/components/Sidebar.svelte';
+    import { groupByFirstLetter } from '$lib/utils/verbHelpers';
 
     let { data } = $props();
     let favoriteIds = $state([]);
@@ -16,27 +17,6 @@
     }
 
     //Placer des séparateurs pour faciliter le parcours de la liste de verbes
-    function groupByFirstLetter(verbs, sortType) {
-        const groups = {};
-
-        verbs.forEach((verb) => {
-            let firstLetter;
-
-            //Utilise la langue du tri
-            if (sortType === "greek") {
-                firstLetter = verb.greek[0].toUpperCase();
-            } else {
-                firstLetter = verb.translation[0].toUpperCase();
-            }
-
-            if (!groups[firstLetter]) {
-                groups[firstLetter] = [];
-            }
-            groups[firstLetter].push(verb);
-        });
-        return groups;
-    }
-
     const verbGroups = $derived(groupByFirstLetter(verbs, data.currentSort));
     // Si verbGroups = { "Α": [...], "Π": [...], "Σ": [...] }
     const letters = $derived(Object.keys(verbGroups).sort((a, b) =>
