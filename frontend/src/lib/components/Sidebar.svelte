@@ -37,17 +37,17 @@
       <ul>
         {#each favoriteVerbs as verb}
           <li>
-            <div class="verb-info">
-              <span class="greek">{verb.greek}</span>
+            <span class="greek">{verb.greek}</span>
+            <div class="right-group">
               <span class="translation">{verb.translation}</span>
+              <button
+                class="delete-btn"
+                onclick={() => removeFromDict(verb.id)}
+                title="Retirer du dictionnaire"
+              >
+                🗑️
+              </button>
             </div>
-            <button
-              class="delete-btn"
-              onclick={() => removeFromDict(verb.id)}
-              title="Retirer du dictionnaire"
-            >
-              🗑️
-            </button>
           </li>
         {/each}
       </ul>
@@ -162,26 +162,22 @@
 
   li {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 8px;
     padding: 6px 16px;
     transition: background-color 0.2s ease;
-    font-size: 0.9 rem;
+    font-size: 0.9rem;
   }
 
   li:hover {
     background: rgba(0, 0, 0, 0.02);
   }
 
-  li:last-child {
-    border-bottom: none;
-  }
-
-  .verb-info {
-    display: flex;
-    gap: 8 px;
-    align-items: center;
-    flex: 1;
+  .right-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   }
 
   .greek {
