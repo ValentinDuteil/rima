@@ -88,9 +88,17 @@
                             checked={favoriteIds.includes(verb.id)}
                             onclick={() => addToDict(verb.id)}
                         />
-                        <span class="greek">{verb.greek}</span>
+                        {#if data.currentSort === "french"}
+                            <span class="primary">{verb.translation}</span>
+                        {:else}
+                            <span class="primary">{verb.greek}</span>
+                        {/if}
                     </div>
-                    <span class="translation">{verb.translation}</span>
+                    {#if data.currentSort === "french"}
+                    <span class="secondary">{verb.greek}</span>
+                    {:else}
+                    <span class="secondary">{verb.translation}</span>
+                    {/if}
                 </div>
             {/each}
         {/each}
@@ -168,12 +176,12 @@
         border-bottom: none;
     }
 
-    .greek {
+    .primary {
         font-weight: bold;
         color: var(--primary);
     }
 
-    .translation {
+    .secondary {
         color: var(--text-light);
     }
 
