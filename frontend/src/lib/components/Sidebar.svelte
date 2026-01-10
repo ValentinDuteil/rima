@@ -84,17 +84,31 @@
             <!-- Les verbes de cette lettre -->
             {#each groupedVerbs[letter] as verb}
               <li>
-                <span class="greek">{verb.greek}</span>
-                <div class="right-group">
-                  <span class="translation">{verb.translation}</span>
-                  <button
-                    class="delete-btn"
-                    onclick={() => removeFromDict(verb.id)}
-                    title="Retirer du dictionnaire"
-                  >
-                    🗑️
-                  </button>
-                </div>
+                {#if sidebarSort === "french"}
+                  <span class="primary">{verb.translation}</span>
+                  <div class="right-group">
+                    <span class="secondary">{verb.greek}</span>
+                    <button
+                      class="delete-btn"
+                      onclick={() => removeFromDict(verb.id)}
+                      title="Retirer du dictionnaire"
+                    >
+                      🗑️
+                    </button>
+                  </div>
+                {:else}
+                  <span class="primary">{verb.greek}</span>
+                  <div class="right-group">
+                    <span class="secondary">{verb.translation}</span>
+                    <button
+                      class="delete-btn"
+                      onclick={() => removeFromDict(verb.id)}
+                      title="Retirer du dictionnaire"
+                    >
+                      🗑️
+                    </button>
+                  </div>
+                {/if}
               </li>
             {/each}
           {/each}
@@ -254,13 +268,13 @@
     gap: 12px;
   }
 
-  .greek {
+  .primary {
     font-weight: 600;
     color: var(--primary);
     min-width: 80px;
   }
 
-  .translation {
+  .secondary {
     color: var(--text-light);
   }
 
