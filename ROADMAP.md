@@ -1,4 +1,4 @@
-# 🗺️ ROADMAP - Application de Conjugaison Grecque Moderne
+# 🗺️ ROADMAP - Application RIMA (Conjugaison Grecque Moderne)
 
 ## Vue d'ensemble du projet
 
@@ -8,205 +8,188 @@ Application web pour apprendre et s'exercer aux conjugaisons en grec moderne, av
 
 ## 📋 PHASES DU PROJET
 
-### ✅ PHASE 0 : Préparation & Conception
+### ✅ PHASE 0 : Préparation & Conception (TERMINÉE)
 - [x] **Étape 0.1 : Analyse des besoins**
-  - Définir le scope MVP
-  - Lister les fonctionnalités core vs futures
-  - Valider les 26 verbes de départ
-
 - [x] **Étape 0.2 : Choix de la stack technique**
-  - Frontend : SvelteKit + Vite
+  - Frontend : SvelteKit (Svelte 5)
   - Backend : Node.js + Express
   - BDD : PostgreSQL + pg
-  - Auth : JWT
-
+  - Auth : JWT (prévu Phase 3)
 - [x] **Étape 0.3 : Conception de la base de données**
-  - Identifier les entités (verbes, utilisateurs, dictionnaire personnel)
-  - Créer le MCD avec Mocodo
-  - Générer le MLD
-  - Écrire le schéma SQL
-
 - [x] **Étape 0.4 : Architecture du projet**
-  - Définir la structure des dossiers backend
-  - Définir la structure des dossiers frontend
-  - Créer les fichiers de configuration (.gitignore, package.json...)
 
 ---
 
-### 🎯 PHASE 1 : MVP - Dictionnaire Personnel (Présent uniquement, voix active)
+### 🎯 PHASE 1 : MVP - Dictionnaire Personnel
 
-#### **1. Setup du projet**
+#### **1. Setup du projet** ✅ (TERMINÉ)
 - [x] **Étape 1.1 : Initialisation backend**
-  - Créer le dossier `backend/`
-  - `npm init` + installer dépendances (express, pg, bcrypt, jsonwebtoken, cors, dotenv)
-  - Créer `server.js`
-  - Tester serveur basique sur port 3000
-
 - [x] **Étape 1.2 : Initialisation frontend**
-  - Créer projet SvelteKit avec Vite
-  - Structure des dossiers (components, stores, utils)
-  - Tester page d'accueil basique
-
+  - Migration vers SvelteKit avec architecture routes/
+  - Structure lib/components/ et lib/utils/
 - [x] **Étape 1.3 : Configuration PostgreSQL**
-  - Installer PostgreSQL
-  - Créer la base de données `conjugaison_grec`
-  - Configurer la connexion dans `backend/db/connection.js`
-  - Tester la connexion
 
-#### **2. Base de données**
+#### **2. Base de données** ✅ (TERMINÉ)
 - [x] **Étape 2.1 : Création des tables**
-  - Exécuter le schéma SQL (users, verbs, conjugations, user_verbs)
-  - Vérifier la création des tables
-
+  - Tables : verbs, translations, conjugations
 - [x] **Étape 2.2 : Insertion des verbes MVP**
-  - Rentrer le verbe être (catégorie spéciale)
-  - Rentrer les 5 verbes groupe A
-  - Rentrer les 6 verbes groupe B1
-  - Rentrer les 7 verbes groupe B2
-  - Rentrer les 7 verbes groupe A/B
-  - Total : 26 verbes avec leurs conjugaisons au présent
-
+  - 26 verbes insérés avec traductions
+  - Groupes : A, B1, B2, A/B, être
 - [x] **Étape 2.3 : Vérification des données**
-  - Tester les requêtes SELECT
-  - Vérifier l'intégrité des données
 
-#### **3. Backend - API REST**
+#### **3. Backend - API REST** 🔄 (80% TERMINÉ)
 - [ ] **Étape 3.1 : Authentification**
-  - Route POST `/api/auth/signup` (inscription)
-  - Route POST `/api/auth/login` (connexion)
-  - Middleware de vérification JWT
-  - Tester avec Postman/Thunder Client
+  - Non fait (prévu Phase 3)
 
 - [x] **Étape 3.2 : Routes des verbes**
-  - Route GET `/api/verbs` (liste tous les verbes)
-  - Route GET `/api/verbs/:id` (détails d'un verbe)
-  - Route GET `/api/verbs/search?q=...` (recherche FR/GR)
-  - Tester les routes
+  - GET `/api/verbs` (avec tri et filtres)
+  - GET `/api/verbs/:id` (détails d'un verbe)
+  - GET `/api/verbs/search?q=...` (recherche FR/GR)
+  - GET `/api/verbs/:id/conjugations`
 
 - [ ] **Étape 3.3 : Routes du dictionnaire personnel**
-  - Route GET `/api/user-verbs` (liste du dico perso)
-  - Route POST `/api/user-verbs/:verbId` (ajouter au dico)
-  - Route DELETE `/api/user-verbs/:verbId` (retirer du dico)
-  - Route PATCH `/api/user-verbs/:verbId` (modifier statut)
-  - Tester les routes
+  - Non fait en BDD (localStorage utilisé temporairement)
+  - Prévu Phase 4 : Migration localStorage → BDD
 
-#### **4. Frontend - Interface utilisateur**
+#### **4. Frontend - Interface utilisateur** 🔄 (85% TERMINÉ)
 - [ ] **Étape 4.1 : Authentification**
-  - Composant `Login.svelte`
-  - Composant `Signup.svelte`
-  - Store Svelte pour l'utilisateur connecté
-  - Gestion du token JWT dans localStorage
-  - Redirection si non connecté
+  - Non fait (prévu Phase 3)
 
 - [x] **Étape 4.2 : Barre de recherche**
-  - Composant `SearchBar.svelte`
-  - Recherche en temps réel (français OU grec)
-  - Affichage des résultats
-  - Bouton "Ajouter à mon dictionnaire"
+  - Composant `Header.svelte` avec recherche
+  - Recherche en temps réel (français ET grec)
+  - Dropdown avec résultats
+  - Navigation vers les résultats
 
-- [ ] **Étape 4.3 : Dictionnaire personnel**
-  - Composant `UserDictionary.svelte`
-  - Liste des verbes ajoutés
-  - Bouton retirer du dictionnaire
-  - Gestion du statut (en cours, maîtrisé)
+- [x] **Étape 4.3 : Dictionnaire personnel**
+  - ✅ Composant `Sidebar.svelte` complet
+  - ✅ Stockage localStorage (IDs uniquement)
+  - ✅ Ajout/suppression de verbes via checkboxes
+  - ✅ Tri FR/GR dynamique dans la sidebar
+  - ✅ Groupement par lettre avec séparateurs graphiques
+  - ✅ Inversion affichage grec ↔ français selon tri
+  - ✅ Boutons FR/ΕΛ pour changer le tri
+  - ✅ Animation slide depuis la droite
+  - ✅ Overlay pour fermer
+  - [ ] Migration vers BDD (Phase 4)
+  - [ ] Gestion du statut (en cours, maîtrisé) - Phase 4
 
 - [ ] **Étape 4.4 : Consultation d'un verbe**
-  - Composant `VerbDetails.svelte`
-  - Affichage de toutes les conjugaisons (présent uniquement)
-  - Navigation depuis la recherche ou le dictionnaire
+  - Composant `VerbDetails.svelte` (à faire)
+  - Page `/verbs/[id]` à créer
 
-- [ ] **Étape 4.5 : Filtres**
-  - Composant `Filters.svelte`
-  - Filtre par groupe (A, B1, B2, A/B, être)
-  - Filtre par nombre de verbes (tout / X derniers ajoutés)
-  - Application des filtres à la liste
+- [x] **Étape 4.5 : Filtres & Tri**
+  - ✅ Tri français/grec avec URLs propres
+  - ✅ Filtres par groupe (A, B1, B2, A/B, Tous)
+  - ✅ Séparateurs alphabétiques dynamiques
+  - ✅ Fonction mutualisée `groupByFirstLetter()` dans `lib/utils/verbHelpers.js`
+  - ✅ Inversion affichage selon tri (homepage + sidebar)
 
-#### **5. Tests & Debug**
-- [ ] **Étape 5.1 : Tests fonctionnels**
-  - Tester l'inscription/connexion
-  - Tester la recherche de verbes
-  - Tester l'ajout/retrait au dictionnaire
-  - Tester les filtres
-  - Tester la consultation des conjugaisons
+#### **5. Tests & Polish** 🔄 (50% TERMINÉ)
+- [x] **Étape 5.1 : Tests fonctionnels de base**
+  - ✅ Recherche de verbes
+  - ✅ Ajout/retrait au dictionnaire
+  - ✅ Filtres et tri
+  - [ ] Tests avec auth (Phase 3)
 
-- [ ] **Étape 5.2 : Responsive design**
-  - Vérifier sur mobile
-  - Vérifier sur tablette
-  - Ajuster le CSS si nécessaire
+- [x] **Étape 5.2 : Responsive design**
+  - ✅ Mobile-first design
+  - ✅ Sidebar responsive (pleine largeur sur mobile)
+  - ✅ Header responsive
 
 - [ ] **Étape 5.3 : Documentation**
-  - Compléter le README.md avec décisions Phase 1
-  - Documenter l'architecture
-  - Ajouter des commentaires dans le code
+  - [ ] Compléter README.md
+  - [ ] Documenter l'architecture
+  - [x] Commentaires dans le code
 
 ---
 
-### 🚀 PHASE 2 : Expansion de la base de données
+### 🔧 REFACTORING & OPTIMISATIONS (À planifier)
+
+#### **Priorité 1 - Code Quality**
+- [ ] Créer composant `VerbItem.svelte` pour mutualiser l'affichage
+- [ ] Déplacer `.primary` / `.secondary` dans `app.css` (variables globales)
+- [ ] Créer `lib/utils/sortHelpers.js` pour mutualiser la logique de tri
+
+#### **Priorité 2 - Features**
+- [ ] Migration localStorage → BDD (avec auth)
+- [ ] Ajouter loading states pendant les fetch
+- [ ] Améliorer animations (sidebar, tri)
+
+#### **Priorité 3 - Tests**
+- [ ] Tests unitaires pour `groupByFirstLetter()`
+- [ ] Tests E2E avec Playwright
+- [ ] Tests d'intégration API
+
+---
+
+### 🚀 PHASE 2 : Expansion de la base de données (À FAIRE)
 - [ ] **Script de scraping Wiktionary**
-  - Développer le scraper
-  - Tester sur 10 verbes
-  - Lancer sur 100+ verbes
-  
-- [ ] **Algorithme de génération**
-  - Pour les verbes réguliers
-  - Intégration à la BDD
-
-- [ ] **Ajout des temps**
-  - Futur
-  - Aoriste
-  - Imparfait
-  - Autres temps (parfait, plus-que-parfait...)
-
-- [ ] **Ajout des modes**
-  - Subjonctif
-  - Impératif
-
-- [ ] **Ajout des voix**
-  - Voix médio-passive (Γ1, Γ2, Γ3, Γ4)
+- [ ] **Algorithme de génération pour verbes réguliers**
+- [ ] **Ajout des temps** (Futur, Aoriste, Imparfait, Parfait...)
+- [ ] **Ajout des modes** (Subjonctif, Impératif)
+- [ ] **Ajout des voix** (Médio-passive)
 
 ---
 
-### 🎮 PHASE 3 : Exercices
-- [ ] **Exercice basique : Conjugaison**
-  - "Conjugue [verbe] au [temps] à la [personne]"
-  - Vérification de la réponse
-  - Feedback correct/incorrect
+### 🎮 PHASE 3 : Authentification & Page Détails (PROCHAINE)
+- [ ] **Auth complète**
+  - Signup/Login
+  - JWT
+  - Protection des routes
+  - Store utilisateur
 
+- [ ] **Page détails d'un verbe**
+  - Route `/verbs/[id]`
+  - Affichage conjugaisons
+  - Bouton ajouter/retirer du dictionnaire
+
+---
+
+### 🎯 PHASE 4 : Migration localStorage → BDD (APRÈS AUTH)
+- [ ] Table `user_verbs`
+- [ ] Routes API dictionnaire
+- [ ] Migration des données localStorage
+- [ ] Statut des verbes (non acquis / en cours / maîtrisé)
+
+---
+
+### 🎮 PHASE 5 : Exercices (APRÈS MVP COMPLET)
+- [ ] **Exercice : Conjugaison**
 - [ ] **Exercice : Relier les points**
-  - Verbe grec ↔ Traduction française
-
 - [ ] **Exercice : Texte à trous**
-  - Phrases avec conjugaisons manquantes
-
 - [ ] **Exercice : QCM**
-  - Choix multiples
-
-- [ ] **Mode mélange**
-  - Alternance aléatoire des types d'exercices
+- [ ] **Mode mélange aléatoire**
 
 ---
 
-### 🚀 PHASES SUIVANTES (À définir)
-
-**Phase 4 et au-delà** :
+### 🚀 PHASES FUTURES
 - Gamification & Statistiques
-- Contenu pédagogique
-- UX/UI avancée
-- Autres fonctionnalités (SRS, export/import, PWA...)
-- Déploiement en production
-
-*(Ces phases seront détaillées au fur et à mesure de l'avancement du projet)*
+- SRS (Spaced Repetition System)
+- Export/Import dictionnaire
+- PWA (Progressive Web App)
+- Déploiement production
 
 ---
 
-## 📝 Notes
+## 📊 ÉTAT D'AVANCEMENT GLOBAL
 
-- **Philosophie** : Avancer étape par étape, valider chaque phase avant de passer à la suivante
-- **Priorité** : Comprendre > Aller vite
-- **Documentation** : Documenter les décisions au fur et à mesure dans README.md
-- **Tests** : Tester chaque fonctionnalité avant de continuer
+**Phase 0** : ✅ 100% (Terminée)  
+**Phase 1** : 🔄 85% (Presque terminée - manque auth + page détails)  
+**Phase 2** : ⏳ 0% (Non démarrée)  
+**Phase 3** : ⏳ 0% (Non démarrée)  
 
 ---
 
-**Dernière mise à jour** : 20 décembre 2024
-**Version** : 1.0 - MVP en cours
+## 📝 Notes importantes
+
+- **Approche pédagogique** : Guidage par questions, pas de code direct (sauf demande explicite)
+- **Philosophie** : Comprendre > Aller vite
+- **DRY** : Mutualiser le code dès que possible (verbHelpers.js créé !)
+- **Documentation** : Tenir à jour cette roadmap + document de transition
+
+---
+
+**Dernière mise à jour** : 9 janvier 2026  
+**Version** : 1.2 - Phase 1 à 85%, Sidebar complète  
+**Prochaine étape** : Page détails verbe OU Auth (à décider)
