@@ -39,11 +39,17 @@ export async function getAllVerbs(req, res, next) {
 export async function getVerbById(req, res, next) {
     try {
         const id = req.params.id;
-        const verb = await pool.query(`SELECT * FROM verbs WHERE id = $1`, [id]);
+        const verb = await pool.query(`
+            SELECT v.id, v.greek, v."group", MIN(t.translation) as translation 
+            FROM verbs v 
+            LEFT JOIN translations t ON v.id = t.verb_id
+            WHERE v.id = $1
+            GROUP BY v.id, v.greek, v."group"
+        `, [id]);
 
         if (verb.rows.length === 0) {
             return res.status(404).json({ error: 'Verbe non trouvé' });
-        } return res.json(verb.rows);
+        } return res.json(verb.rows[0]);
     } catch (error) {
         next(error);
     }
@@ -77,11 +83,11 @@ export async function getVerbConjugations(req, res, next) {
     try {
         const id = req.params.id;
         const verb = await pool.query(`SELECT * FROM conjugations WHERE verb_id = $1`, [id]);
-    
+
         if (verb.rows.length === 0) {
             return res.status(404).json({ error: 'Verbe non trouvé' });
         } return res.json(verb.rows);
-        } catch (error) {
-            next(error);
-        }
+    } catch (error) {
+        next(error);
+    }
 }
