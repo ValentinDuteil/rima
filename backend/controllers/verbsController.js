@@ -91,3 +91,20 @@ export async function getVerbConjugations(req, res, next) {
         next(error);
     }
 }
+
+export async function getVerbFrenchConjugations(req, res, next) {
+    try {
+        const id = req.params.id;
+        const frenchConj = await pool.query(
+            `SELECT * FROM french_conjugations WHERE verb_id = $1`, 
+            [id]
+        );
+    
+        if (frenchConj.rows.length === 0) {
+            return res.status(404).json({ error: 'Conjugaisons françaises non trouvées' });
+        } 
+        return res.json(frenchConj.rows);
+    } catch (error) {
+        next(error);
+    }
+}

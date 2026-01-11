@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAllVerbs, getVerbById, searchVerbs, getVerbConjugations } from '../controllers/verbsController.js';
+import { getAllVerbs, getVerbById, searchVerbs, getVerbConjugations, getVerbFrenchConjugations } from '../controllers/verbsController.js';
 
 const router = Router();
 
