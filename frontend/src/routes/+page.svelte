@@ -1,12 +1,12 @@
 <script>
-    import Sidebar from '$lib/components/Sidebar.svelte';
-    import { groupByFirstLetter } from '$lib/utils/verbHelpers';
+    import Sidebar from "$lib/components/Sidebar.svelte";
+    import { groupByFirstLetter } from "$lib/utils/verbHelpers";
 
     let { data } = $props();
     let favoriteIds = $state([]);
     let verbs = $derived(data.verbs);
     let favoriteVerbs = $derived(
-    favoriteIds.map((id) => verbs.find((verbe) => verbe.id === id))
+        favoriteIds.map((id) => verbs.find((verbe) => verbe.id === id)),
     );
 
     if (typeof window !== "undefined") {
@@ -19,9 +19,9 @@
     //Placer des séparateurs pour faciliter le parcours de la liste de verbes
     const verbGroups = $derived(groupByFirstLetter(verbs, data.currentSort));
     // Si verbGroups = { "Α": [...], "Π": [...], "Σ": [...] }
-    const letters = $derived(Object.keys(verbGroups).sort((a, b) =>
-        a.localeCompare(b, "fr-FR"),
-    )); // → ["Α", "Π", "Σ"]
+    const letters = $derived(
+        Object.keys(verbGroups).sort((a, b) => a.localeCompare(b, "fr-FR")),
+    ); // → ["Α", "Π", "Σ"]
 
     //Ajouter des verbes dans un dictionnaire personnel
     function addToDict(verbId) {
@@ -89,15 +89,19 @@
                             onclick={() => addToDict(verb.id)}
                         />
                         {#if data.currentSort === "french"}
-                            <span class="primary">{verb.translation}</span>
+                            <a href="/verbs/{verb.id}">
+                                <span class="primary">{verb.translation}</span>
+                            </a>
                         {:else}
-                            <span class="primary">{verb.greek}</span>
+                            <a href="/verbs/{verb.id}">
+                                <span class="primary">{verb.greek}</span>
+                            </a>
                         {/if}
                     </div>
                     {#if data.currentSort === "french"}
-                    <span class="secondary">{verb.greek}</span>
+                        <span class="secondary">{verb.greek}</span>
                     {:else}
-                    <span class="secondary">{verb.translation}</span>
+                        <span class="secondary">{verb.translation}</span>
                     {/if}
                 </div>
             {/each}
@@ -105,9 +109,8 @@
     </div>
 {/if}
 
-<Sidebar 
-    favoriteVerbs={favoriteVerbs} 
-    removeFromDict={addToDict} />
+<Sidebar {favoriteVerbs} removeFromDict={addToDict} />
+
 <style>
     .header-controls {
         display: flex;
@@ -183,6 +186,16 @@
 
     .secondary {
         color: var(--text-light);
+    }
+
+    .verb-item a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .verb-item a:hover {
+        text-decoration: underline;
+        cursor: pointer;
     }
 
     .letter-separator {

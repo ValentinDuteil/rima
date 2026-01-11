@@ -85,9 +85,13 @@
             {#each groupedVerbs[letter] as verb}
               <li>
                 {#if sidebarSort === "french"}
-                  <span class="primary">{verb.translation}</span>
+                  <a href="/verbs/{verb.id}">
+                    <span class="primary">{verb.translation}</span>
+                  </a>
                   <div class="right-group">
-                    <span class="secondary">{verb.greek}</span>
+                    <a href="/verbs/{verb.id}">
+                      <span class="secondary">{verb.greek}</span>
+                    </a>
                     <button
                       class="delete-btn"
                       onclick={() => removeFromDict(verb.id)}
@@ -97,9 +101,13 @@
                     </button>
                   </div>
                 {:else}
-                  <span class="primary">{verb.greek}</span>
+                  <a href="/verbs/{verb.id}">
+                    <span class="primary">{verb.greek}</span>
+                  </a>
                   <div class="right-group">
-                    <span class="secondary">{verb.translation}</span>
+                    <a href="/verbs/{verb.id}">
+                      <span class="secondary">{verb.translation}</span>
+                    </a>
                     <button
                       class="delete-btn"
                       onclick={() => removeFromDict(verb.id)}
@@ -276,6 +284,16 @@
 
   .secondary {
     color: var(--text-light);
+  }
+
+  li a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  li a:hover {
+    text-decoration: underline;
+    cursor: pointer;
   }
 
   .delete-btn {
