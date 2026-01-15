@@ -1,11 +1,23 @@
 <script>
+import { groupConjugations } from '$lib/utils/verbHelpers';
+
+function safeGroupConjugations(conjugations) {
+  if (conjugations) {
+    return groupConjugations(conjugations);
+  } else {
+    return {};
+  }
+}
+
 let { data } = $props();
-
-
+let groupedGreek = $derived(safeGroupConjugations(data.conjugations));
+let groupedFrench = $derived(safeGroupConjugations(data.frenchConjugations));
 
 </script>
 
 <h1>Détails du verbe</h1>
+
+<pre>{JSON.stringify(groupedGreek, null, 2)}</pre>
 
 <div class="verb-header">
   <div class="verb-greek">{data.verb.greek}</div>

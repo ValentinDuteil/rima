@@ -16,33 +16,19 @@ export function groupByFirstLetter(verbs, sortType) {
     }
     groups[firstLetter].push(verb);
   });
-}// Groupe les conjugaisons en fonction des temps/voix/mode....etc
-function groupConjugations(tableauDeConjugaisons) {
-  const objectGroup = {};
-
-
-  for (const uneConjugaison of tableauDeConjugaisons) {
-    const etiquette = `${uneConjugaison.tense}-${uneConjugaison.mood}-${uneConjugaison.voice}`;
-    if (!objectGroup[etiquette]) {
-      objectGroup[etiquette] = [];
-    }
-    objectGroup[etiquette].push(uneConjugaison)
-  }
-
-  return objectGroup;
 }
 
-// Groupe les conjugaisons en fonction des temps/voix/mode....etc
-export function groupConjugations(tableauDeConjugaisons) {
-  const objectGroup = {};
+  // Groupe les conjugaisons en fonction des temps/voix/mode....etc
+  export function groupConjugations(tableauDeConjugaisons) {
+    const objectGroup = {};
 
-  for (const uneConjugaison of tableauDeConjugaisons) {
-    const etiquette = `${uneConjugaison.tense}-${uneConjugaison.mood}-${uneConjugaison.voice}`;
-    if (!objectGroup[etiquette]) {
-      objectGroup[etiquette] = [];
+    for (const uneConjugaison of tableauDeConjugaisons) {
+      const etiquette = `${uneConjugaison.tense}-${uneConjugaison.mood}-${uneConjugaison.voice}`;
+      if (!objectGroup[etiquette]) {
+        objectGroup[etiquette] = [];
+      }
+      objectGroup[etiquette].push(uneConjugaison)
     }
-    objectGroup[etiquette].push(uneConjugaison)
-  }
 
-  return objectGroup;
-}
+    return objectGroup;
+  }
