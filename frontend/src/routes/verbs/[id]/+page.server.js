@@ -8,27 +8,31 @@ export async function load({ params }) {
 
     let verbUrl = `${API_URL}/api/verbs/${verbId}`;
     let conjUrl = `${API_URL}/api/verbs/${verbId}/conjugations`;
+    let frenchConj = `${API_URL}/api/verbs/${verbId}/french-conjugations`;
 
-    const [responseVerbUrl, responseConj] = await Promise.all([
+    const [responseVerbUrl, responseConj, responseFrenchConj] = await Promise.all([
       fetch(verbUrl),
-      fetch(conjUrl)
+      fetch(conjUrl),
+      fetch(frenchConj),
     ]);
 
-    if (!responseVerbUrl.ok || !responseConj.ok) {
+    if (!responseVerbUrl.ok || !responseConj.ok || !responseFrenchConj.ok) {
       throw new Error('Erreur API');
     }
-    const [verb, conjugations] = await Promise.all([
+    const [verb, conjugations, frenchConjugations] = await Promise.all([
       responseVerbUrl.json(),
-      responseConj.json()
+      responseConj.json(),
+      responseFrenchConj.json(),
     ]);
 
-    return { verb, conjugations };
+    return { verb, conjugations, frenchConjugations };
 
   } catch (error) {
     console.error('Erreur chargement verbes:', error);
     return {
       verb: null,
       conjugations: null,
+      frenchConjugations: null,
       error: 'Impossible de charger les détails du verbe'
     };
   }
