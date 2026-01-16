@@ -1,20 +1,68 @@
 -- ========================================
--- SEED DATA - MVP avec 26 verbes
--- Présent de l'indicatif actif uniquement
+-- RIMA - SEEDER COMPLET
+-- Base de données pour l'apprentissage du grec moderne
 -- ========================================
+
+-- ========================================
+-- NETTOYAGE
+-- ========================================
+
+DROP TABLE IF EXISTS french_conjugations CASCADE;
+DROP TABLE IF EXISTS conjugations CASCADE;
+DROP TABLE IF EXISTS translations CASCADE;
+DROP TABLE IF EXISTS verbs CASCADE;
+
+-- ========================================
+-- CRÉATION DES TABLES
+-- ========================================
+
+CREATE TABLE verbs (
+    id SERIAL PRIMARY KEY,
+    greek VARCHAR(100) NOT NULL UNIQUE,
+    "group" VARCHAR(50),
+    is_irregular BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE translations (
+    id SERIAL PRIMARY KEY,
+    verb_id INTEGER NOT NULL,
+    language VARCHAR(50) NOT NULL,
+    translation VARCHAR(100) NOT NULL,
+    CONSTRAINT fk_translations_verbs FOREIGN KEY (verb_id) REFERENCES verbs(id) ON DELETE CASCADE
+);
+
+CREATE TABLE conjugations (
+    id SERIAL PRIMARY KEY,
+    verb_id INTEGER NOT NULL,
+    tense VARCHAR(50),
+    mood VARCHAR(50),
+    voice VARCHAR(50),
+    person VARCHAR(50),
+    form VARCHAR(50),
+    is_alternative_form BOOLEAN DEFAULT FALSE,
+    CONSTRAINT fk_conjugations_verbs FOREIGN KEY (verb_id) REFERENCES verbs(id) ON DELETE CASCADE
+);
+
+CREATE TABLE french_conjugations (
+    id SERIAL PRIMARY KEY,
+    verb_id INTEGER,
+    tense VARCHAR(50) NOT NULL,
+    mood VARCHAR(50) NOT NULL,
+    person VARCHAR(10) NOT NULL,
+    form VARCHAR(100) NOT NULL,
+    voice VARCHAR(50),
+    is_alternative_form BOOLEAN DEFAULT FALSE,
+    CONSTRAINT french_conjugations_verb_id_fkey FOREIGN KEY (verb_id) REFERENCES verbs(id) ON DELETE CASCADE
+);
 
 -- ========================================
 -- VERBE ÊTRE (catégorie spéciale)
 -- ========================================
 
-INSERT INTO verbs (greek, "group") VALUES ('είμαι', 'etre');
+INSERT INTO verbs (greek, "group", is_irregular) VALUES ('είμαι', 'etre', TRUE);
 
-INSERT INTO translations (verb_id, language, translation) 
-VALUES (
-    (SELECT id FROM verbs WHERE greek = 'είμαι'),
-    'français',
-    'être'
-);
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'είμαι'), 'français', 'être');
 
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'είμαι'), 'present', 'indicative', 'active', '1s', 'είμαι'),
@@ -25,13 +73,13 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'είμαι'), 'present', 'indicative', 'active', '3p', 'είναι');
 
 -- ========================================
--- GROUPE A (5 verbes)
+-- GROUPE A (5 verbes) - Présent uniquement
 -- ========================================
 
 -- γράφω (écrire)
 INSERT INTO verbs (greek, "group") VALUES ('γράφω', 'A');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'γράφω'), 'français', 'écrire');
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'γράφω'), 'français', 'écrire');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'γράφω'), 'present', 'indicative', 'active', '1s', 'γράφω'),
 ((SELECT id FROM verbs WHERE greek = 'γράφω'), 'present', 'indicative', 'active', '2s', 'γράφεις'),
@@ -42,8 +90,8 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 
 -- διαβάζω (lire)
 INSERT INTO verbs (greek, "group") VALUES ('διαβάζω', 'A');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'διαβάζω'), 'français', 'lire');
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'διαβάζω'), 'français', 'lire');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'διαβάζω'), 'present', 'indicative', 'active', '1s', 'διαβάζω'),
 ((SELECT id FROM verbs WHERE greek = 'διαβάζω'), 'present', 'indicative', 'active', '2s', 'διαβάζεις'),
@@ -54,8 +102,8 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 
 -- πίνω (boire)
 INSERT INTO verbs (greek, "group") VALUES ('πίνω', 'A');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'πίνω'), 'français', 'boire');
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'πίνω'), 'français', 'boire');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'πίνω'), 'present', 'indicative', 'active', '1s', 'πίνω'),
 ((SELECT id FROM verbs WHERE greek = 'πίνω'), 'present', 'indicative', 'active', '2s', 'πίνεις'),
@@ -66,8 +114,8 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 
 -- κλείνω (fermer)
 INSERT INTO verbs (greek, "group") VALUES ('κλείνω', 'A');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'κλείνω'), 'français', 'fermer');
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'κλείνω'), 'français', 'fermer');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'κλείνω'), 'present', 'indicative', 'active', '1s', 'κλείνω'),
 ((SELECT id FROM verbs WHERE greek = 'κλείνω'), 'present', 'indicative', 'active', '2s', 'κλείνεις'),
@@ -78,8 +126,8 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 
 -- αγοράζω (acheter)
 INSERT INTO verbs (greek, "group") VALUES ('αγοράζω', 'A');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'αγοράζω'), 'français', 'acheter');
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγοράζω'), 'français', 'acheter');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'αγοράζω'), 'present', 'indicative', 'active', '1s', 'αγοράζω'),
 ((SELECT id FROM verbs WHERE greek = 'αγοράζω'), 'present', 'indicative', 'active', '2s', 'αγοράζεις'),
@@ -89,13 +137,14 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'αγοράζω'), 'present', 'indicative', 'active', '3p', 'αγοράζουν');
 
 -- ========================================
--- GROUPE B1 (6 verbes)
+-- GROUPE B1 (6 verbes) - Présent uniquement
+-- Note: αγαπάω sera complété plus loin
 -- ========================================
 
 -- μιλάω (parler)
 INSERT INTO verbs (greek, "group") VALUES ('μιλάω', 'B1');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'μιλάω'), 'français', 'parler');
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'μιλάω'), 'français', 'parler');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'μιλάω'), 'present', 'indicative', 'active', '1s', 'μιλάω'),
 ((SELECT id FROM verbs WHERE greek = 'μιλάω'), 'present', 'indicative', 'active', '2s', 'μιλάς'),
@@ -106,24 +155,10 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'μιλάω'), 'present', 'indicative', 'active', '3p', 'μιλάνε'),
 ((SELECT id FROM verbs WHERE greek = 'μιλάω'), 'present', 'indicative', 'active', '3p', 'μιλούν');
 
--- αγαπάω (aimer)
-INSERT INTO verbs (greek, "group") VALUES ('αγαπάω', 'B1');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'français', 'aimer');
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '1s', 'αγαπάω'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '2s', 'αγαπάς'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3s', 'αγαπάει'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3s', 'αγαπά'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '1p', 'αγαπάμε'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '2p', 'αγαπάτε'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3p', 'αγαπάνε'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3p', 'αγαπούν');
-
 -- ζητάω (demander)
 INSERT INTO verbs (greek, "group") VALUES ('ζητάω', 'B1');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'ζητάω'), 'français', 'demander');
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'ζητάω'), 'français', 'demander');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'ζητάω'), 'present', 'indicative', 'active', '1s', 'ζητάω'),
 ((SELECT id FROM verbs WHERE greek = 'ζητάω'), 'present', 'indicative', 'active', '2s', 'ζητάς'),
@@ -136,8 +171,8 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 
 -- σταματάω (s'arrêter)
 INSERT INTO verbs (greek, "group") VALUES ('σταματάω', 'B1');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'σταματάω'), 'français', 's''arrêter');
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'σταματάω'), 'français', 's''arrêter');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'σταματάω'), 'present', 'indicative', 'active', '1s', 'σταματάω'),
 ((SELECT id FROM verbs WHERE greek = 'σταματάω'), 'present', 'indicative', 'active', '2s', 'σταματάς'),
@@ -150,8 +185,8 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 
 -- πονάω (avoir mal)
 INSERT INTO verbs (greek, "group") VALUES ('πονάω', 'B1');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'πονάω'), 'français', 'avoir mal');
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'πονάω'), 'français', 'avoir mal');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'πονάω'), 'present', 'indicative', 'active', '1s', 'πονάω'),
 ((SELECT id FROM verbs WHERE greek = 'πονάω'), 'present', 'indicative', 'active', '2s', 'πονάς'),
@@ -164,8 +199,8 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 
 -- συναντάω (rencontrer)
 INSERT INTO verbs (greek, "group") VALUES ('συναντάω', 'B1');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'συναντάω'), 'français', 'rencontrer');
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'συναντάω'), 'français', 'rencontrer');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'συναντάω'), 'present', 'indicative', 'active', '1s', 'συναντάω'),
 ((SELECT id FROM verbs WHERE greek = 'συναντάω'), 'present', 'indicative', 'active', '2s', 'συναντάς'),
@@ -177,13 +212,13 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'συναντάω'), 'present', 'indicative', 'active', '3p', 'συναντούν');
 
 -- ========================================
--- GROUPE B2 (7 verbes)
+-- GROUPE B2 (7 verbes) - Présent uniquement
 -- ========================================
 
 -- ζω (vivre)
 INSERT INTO verbs (greek, "group") VALUES ('ζω', 'B2');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'ζω'), 'français', 'vivre');
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'ζω'), 'français', 'vivre');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'ζω'), 'present', 'indicative', 'active', '1s', 'ζω'),
 ((SELECT id FROM verbs WHERE greek = 'ζω'), 'present', 'indicative', 'active', '2s', 'ζεις'),
@@ -194,8 +229,8 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 
 -- παρακαλώ (prier/demander)
 INSERT INTO verbs (greek, "group") VALUES ('παρακαλώ', 'B2');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'παρακαλώ'), 'français', 'prier');
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'παρακαλώ'), 'français', 'prier');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'παρακαλώ'), 'present', 'indicative', 'active', '1s', 'παρακαλώ'),
 ((SELECT id FROM verbs WHERE greek = 'παρακαλώ'), 'present', 'indicative', 'active', '2s', 'παρακαλείς'),
@@ -206,8 +241,8 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 
 -- καλώ (inviter)
 INSERT INTO verbs (greek, "group") VALUES ('καλώ', 'B2');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'καλώ'), 'français', 'inviter');
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'καλώ'), 'français', 'inviter');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'καλώ'), 'present', 'indicative', 'active', '1s', 'καλώ'),
 ((SELECT id FROM verbs WHERE greek = 'καλώ'), 'present', 'indicative', 'active', '2s', 'καλείς'),
@@ -218,8 +253,8 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 
 -- χρησιμοποιώ (utiliser)
 INSERT INTO verbs (greek, "group") VALUES ('χρησιμοποιώ', 'B2');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'χρησιμοποιώ'), 'français', 'utiliser');
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'χρησιμοποιώ'), 'français', 'utiliser');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'χρησιμοποιώ'), 'present', 'indicative', 'active', '1s', 'χρησιμοποιώ'),
 ((SELECT id FROM verbs WHERE greek = 'χρησιμοποιώ'), 'present', 'indicative', 'active', '2s', 'χρησιμοποιείς'),
@@ -230,8 +265,8 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 
 -- συμφωνώ (être d'accord)
 INSERT INTO verbs (greek, "group") VALUES ('συμφωνώ', 'B2');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'συμφωνώ'), 'français', 'être d''accord');
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'συμφωνώ'), 'français', 'être d''accord');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'συμφωνώ'), 'present', 'indicative', 'active', '1s', 'συμφωνώ'),
 ((SELECT id FROM verbs WHERE greek = 'συμφωνώ'), 'present', 'indicative', 'active', '2s', 'συμφωνείς'),
@@ -242,8 +277,8 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 
 -- τηλεφωνώ (téléphoner)
 INSERT INTO verbs (greek, "group") VALUES ('τηλεφωνώ', 'B2');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'τηλεφωνώ'), 'français', 'téléphoner');
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'τηλεφωνώ'), 'français', 'téléphoner');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'τηλεφωνώ'), 'present', 'indicative', 'active', '1s', 'τηλεφωνώ'),
 ((SELECT id FROM verbs WHERE greek = 'τηλεφωνώ'), 'present', 'indicative', 'active', '2s', 'τηλεφωνείς'),
@@ -254,8 +289,8 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 
 -- αργώ (tarder)
 INSERT INTO verbs (greek, "group") VALUES ('αργώ', 'B2');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'αργώ'), 'français', 'tarder');
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'αργώ'), 'français', 'tarder');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'αργώ'), 'present', 'indicative', 'active', '1s', 'αργώ'),
 ((SELECT id FROM verbs WHERE greek = 'αργώ'), 'present', 'indicative', 'active', '2s', 'αργείς'),
@@ -265,13 +300,13 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'αργώ'), 'present', 'indicative', 'active', '3p', 'αργούν');
 
 -- ========================================
--- GROUPE A/B (7 verbes irréguliers)
+-- GROUPE A/B (7 verbes irréguliers) - Présent uniquement
 -- ========================================
 
 -- ακούω (écouter)
-INSERT INTO verbs (greek, "group") VALUES ('ακούω', 'A/B');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'ακούω'), 'français', 'écouter');
+INSERT INTO verbs (greek, "group", is_irregular) VALUES ('ακούω', 'A/B', TRUE);
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'ακούω'), 'français', 'écouter');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'ακούω'), 'present', 'indicative', 'active', '1s', 'ακούω'),
 ((SELECT id FROM verbs WHERE greek = 'ακούω'), 'present', 'indicative', 'active', '2s', 'ακούς'),
@@ -281,9 +316,9 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'ακούω'), 'present', 'indicative', 'active', '3p', 'ακούνε');
 
 -- λέω (dire)
-INSERT INTO verbs (greek, "group") VALUES ('λέω', 'A/B');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'λέω'), 'français', 'dire');
+INSERT INTO verbs (greek, "group", is_irregular) VALUES ('λέω', 'A/B', TRUE);
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'λέω'), 'français', 'dire');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'λέω'), 'present', 'indicative', 'active', '1s', 'λέω'),
 ((SELECT id FROM verbs WHERE greek = 'λέω'), 'present', 'indicative', 'active', '2s', 'λες'),
@@ -293,9 +328,9 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'λέω'), 'present', 'indicative', 'active', '3p', 'λένε');
 
 -- τρώω (manger)
-INSERT INTO verbs (greek, "group") VALUES ('τρώω', 'A/B');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'τρώω'), 'français', 'manger');
+INSERT INTO verbs (greek, "group", is_irregular) VALUES ('τρώω', 'A/B', TRUE);
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'τρώω'), 'français', 'manger');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'τρώω'), 'present', 'indicative', 'active', '1s', 'τρώω'),
 ((SELECT id FROM verbs WHERE greek = 'τρώω'), 'present', 'indicative', 'active', '2s', 'τρως'),
@@ -305,9 +340,9 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'τρώω'), 'present', 'indicative', 'active', '3p', 'τρώνε');
 
 -- κλαίω (pleurer)
-INSERT INTO verbs (greek, "group") VALUES ('κλαίω', 'A/B');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'κλαίω'), 'français', 'pleurer');
+INSERT INTO verbs (greek, "group", is_irregular) VALUES ('κλαίω', 'A/B', TRUE);
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'κλαίω'), 'français', 'pleurer');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'κλαίω'), 'present', 'indicative', 'active', '1s', 'κλαίω'),
 ((SELECT id FROM verbs WHERE greek = 'κλαίω'), 'present', 'indicative', 'active', '2s', 'κλαις'),
@@ -317,9 +352,9 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'κλαίω'), 'present', 'indicative', 'active', '3p', 'κλαίνε');
 
 -- καίω (brûler)
-INSERT INTO verbs (greek, "group") VALUES ('καίω', 'A/B');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'καίω'), 'français', 'brûler');
+INSERT INTO verbs (greek, "group", is_irregular) VALUES ('καίω', 'A/B', TRUE);
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'καίω'), 'français', 'brûler');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'καίω'), 'present', 'indicative', 'active', '1s', 'καίω'),
 ((SELECT id FROM verbs WHERE greek = 'καίω'), 'present', 'indicative', 'active', '2s', 'καις'),
@@ -329,9 +364,9 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'καίω'), 'present', 'indicative', 'active', '3p', 'καίνε');
 
 -- πάω (aller)
-INSERT INTO verbs (greek, "group") VALUES ('πάω', 'A/B');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'πάω'), 'français', 'aller');
+INSERT INTO verbs (greek, "group", is_irregular) VALUES ('πάω', 'A/B', TRUE);
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'πάω'), 'français', 'aller');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'πάω'), 'present', 'indicative', 'active', '1s', 'πάω'),
 ((SELECT id FROM verbs WHERE greek = 'πάω'), 'present', 'indicative', 'active', '2s', 'πας'),
@@ -341,9 +376,9 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'πάω'), 'present', 'indicative', 'active', '3p', 'πάνε');
 
 -- φταίω (c'est de ma faute)
-INSERT INTO verbs (greek, "group") VALUES ('φταίω', 'A/B');
-INSERT INTO translations (verb_id, language, translation) 
-VALUES ((SELECT id FROM verbs WHERE greek = 'φταίω'), 'français', 'être fautif');
+INSERT INTO verbs (greek, "group", is_irregular) VALUES ('φταίω', 'A/B', TRUE);
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'φταίω'), 'français', 'être fautif');
 INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'φταίω'), 'present', 'indicative', 'active', '1s', 'φταίω'),
 ((SELECT id FROM verbs WHERE greek = 'φταίω'), 'present', 'indicative', 'active', '2s', 'φταις'),
@@ -351,3 +386,504 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'φταίω'), 'present', 'indicative', 'active', '1p', 'φταίμε'),
 ((SELECT id FROM verbs WHERE greek = 'φταίω'), 'present', 'indicative', 'active', '2p', 'φταίτε'),
 ((SELECT id FROM verbs WHERE greek = 'φταίω'), 'present', 'indicative', 'active', '3p', 'φταίνε');
+
+-- ========================================
+-- ΑΓΑΠΆΩ (AIMER) - CONJUGAISONS COMPLÈTES
+-- Verbe modèle du Groupe B1
+-- ========================================
+
+INSERT INTO verbs (greek, "group") VALUES ('αγαπάω', 'B1');
+INSERT INTO translations (verb_id, language, translation) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'français', 'aimer');
+
+-- GREC - FORMES NOMINALES (INFINITIF & PARTICIPE)
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
+-- Infinitifs (utilisés pour les temps composés)
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'infinitive', 'active', NULL, 'αγαπήσει'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'infinitive', 'mediopassive', NULL, 'αγαπηθεί'),
+
+-- Participes
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'participle', 'active', NULL, 'αγαπώντας'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'participle', 'mediopassive', '3s', 'αγαπημένος');
+
+-- ========================================
+-- GREC ACTIF - PRÉSENT INDICATIF
+-- Avec formes alternatives (Gemini)
+-- ========================================
+
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '1s', 'αγαπώ', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '1s', 'αγαπάω', TRUE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '2s', 'αγαπάς', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3s', 'αγαπά', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3s', 'αγαπάει', TRUE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '1p', 'αγαπούμε', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '1p', 'αγαπάμε', TRUE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '2p', 'αγαπάτε', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3p', 'αγαπούν', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3p', 'αγαπούνε', TRUE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3p', 'αγαπάνε', TRUE);
+
+-- GREC ACTIF - FUTUR
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '1s', 'θα αγαπήσω'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '2s', 'θα αγαπήσεις'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '3s', 'θα αγαπήσει'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '1p', 'θα αγαπήσουμε'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '2p', 'θα αγαπήσετε'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '3p', 'θα αγαπήσουν');
+
+-- GREC ACTIF - AORISTE
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'active', '1s', 'αγάπησα'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'active', '2s', 'αγάπησες'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'active', '3s', 'αγάπησε'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'active', '1p', 'αγαπήσαμε'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'active', '2p', 'αγαπήσατε'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'active', '3p', 'αγάπησαν');
+
+-- GREC ACTIF - IMPARFAIT
+-- Avec formes familières (Gemini)
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '1s', 'αγαπούσα', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '1s', 'αγάπαγα', TRUE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '2s', 'αγαπούσες', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '2s', 'αγάπαγες', TRUE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '3s', 'αγαπούσε', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '3s', 'αγάπαγε', TRUE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '1p', 'αγαπούσαμε', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '1p', 'αγαπάγαμε', TRUE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '2p', 'αγαπούσατε', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '2p', 'αγαπάγατε', TRUE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '3p', 'αγαπούσαν', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '3p', 'αγαπούσανε', TRUE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '3p', 'αγάπαγαν', TRUE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '3p', 'αγάπαγανε', TRUE);
+
+-- GREC ACTIF - IMPÉRATIF PRÉSENT
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'active', '2s', 'αγάπα'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'active', '2p', 'αγαπάτε');
+
+-- GREC ACTIF - IMPÉRATIF AORISTE
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'imperative', 'active', '2s', 'αγάπησε'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'imperative', 'active', '2p', 'αγαπήστε');
+
+-- GREC ACTIF - SUBJONCTIF AORISTE
+-- Avec variantes -ουν/-ουνε (Gemini)
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'active', '1s', 'να αγαπήσω', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'active', '2s', 'να αγαπήσεις', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'active', '3s', 'να αγαπήσει', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'active', '1p', 'να αγαπήσουμε', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'active', '2p', 'να αγαπήσετε', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'active', '3p', 'να αγαπήσουν', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'active', '3p', 'να αγαπήσουνε', TRUE);
+
+-- GREC ACTIF - PARFAIT
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'active', '1s', 'έχω αγαπήσει'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'active', '2s', 'έχεις αγαπήσει'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'active', '3s', 'έχει αγαπήσει'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'active', '1p', 'έχουμε αγαπήσει'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'active', '2p', 'έχετε αγαπήσει'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'active', '3p', 'έχουν αγαπήσει');
+
+-- GREC ACTIF - PLUS-QUE-PARFAIT
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '1s', 'είχα αγαπήσει'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '2s', 'είχες αγαπήσει'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '3s', 'είχε αγαπήσει'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '1p', 'είχαμε αγαπήσει'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '2p', 'είχατε αγαπήσει'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '3p', 'είχαν αγαπήσει');
+
+-- ========================================
+-- GREC MÉDIO-PASSIF - PRÉSENT INDICATIF
+-- Avec variantes (Gemini)
+-- ========================================
+
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'mediopassive', '1s', 'αγαπιέμαι', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'mediopassive', '2s', 'αγαπιέσαι', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'mediopassive', '3s', 'αγαπιέται', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'mediopassive', '1p', 'αγαπιόμαστε', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'mediopassive', '2p', 'αγαπιέστε', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'mediopassive', '2p', 'αγαπιόσαστε', TRUE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'mediopassive', '3p', 'αγαπιούνται', FALSE);
+
+-- GREC MÉDIO-PASSIF - FUTUR
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'mediopassive', '1s', 'θα αγαπηθώ'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'mediopassive', '2s', 'θα αγαπηθείς'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'mediopassive', '3s', 'θα αγαπηθεί'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'mediopassive', '1p', 'θα αγαπηθούμε'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'mediopassive', '2p', 'θα αγαπηθείτε'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'mediopassive', '3p', 'θα αγαπηθούν');
+
+-- GREC MÉDIO-PASSIF - AORISTE
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'mediopassive', '1s', 'αγαπήθηκα'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'mediopassive', '2s', 'αγαπήθηκες'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'mediopassive', '3s', 'αγαπήθηκε'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'mediopassive', '1p', 'αγαπηθήκαμε'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'mediopassive', '2p', 'αγαπηθήκατε'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'mediopassive', '3p', 'αγαπήθηκαν');
+
+-- GREC MÉDIO-PASSIF - IMPARFAIT
+-- Avec variantes (Gemini)
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '1s', 'αγαπιόμουν', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '2s', 'αγαπιόσουν', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '3s', 'αγαπιόταν', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '1p', 'αγαπιόμαστε', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '1p', 'αγαπιόμασταν', TRUE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '2p', 'αγαπιόσαστε', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '2p', 'αγαπιόσασταν', TRUE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '3p', 'αγαπιόνταν', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '3p', 'αγαπιούνταν', TRUE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '3p', 'αγαπιόντουσαν', TRUE);
+
+-- GREC MÉDIO-PASSIF - IMPÉRATIF PRÉSENT
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'mediopassive', '2p', 'αγαπιέστε');
+
+-- GREC MÉDIO-PASSIF - IMPÉRATIF AORISTE
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'imperative', 'mediopassive', '2s', 'αγαπήσου'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'imperative', 'mediopassive', '2p', 'αγαπηθείτε');
+
+-- GREC MÉDIO-PASSIF - SUBJONCTIF AORISTE
+-- Avec variantes -ουν/-ουνε (Gemini)
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'mediopassive', '1s', 'να αγαπηθώ', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'mediopassive', '2s', 'να αγαπηθείς', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'mediopassive', '3s', 'να αγαπηθεί', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'mediopassive', '1p', 'να αγαπηθούμε', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'mediopassive', '2p', 'να αγαπηθείτε', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'mediopassive', '3p', 'να αγαπηθούν', FALSE),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'mediopassive', '3p', 'να αγαπηθούνε', TRUE);
+
+-- GREC MÉDIO-PASSIF - PARFAIT
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'mediopassive', '1s', 'έχω αγαπηθεί'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'mediopassive', '2s', 'έχεις αγαπηθεί'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'mediopassive', '3s', 'έχει αγαπηθεί'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'mediopassive', '1p', 'έχουμε αγαπηθεί'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'mediopassive', '2p', 'έχετε αγαπηθεί'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'mediopassive', '3p', 'έχουν αγαπηθεί');
+
+-- GREC MÉDIO-PASSIF - PLUS-QUE-PARFAIT
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'mediopassive', '1s', 'είχα αγαπηθεί'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'mediopassive', '2s', 'είχες αγαπηθεί'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'mediopassive', '3s', 'είχε αγαπηθεί'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'mediopassive', '1p', 'είχαμε αγαπηθεί'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'mediopassive', '2p', 'είχατε αγαπηθεί'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'mediopassive', '3p', 'είχαν αγαπηθεί');
+-- ========================================
+-- FRANÇAIS ACTIF - TOUS LES TEMPS
+-- ========================================
+
+-- FRANÇAIS - FORMES NOMINALES (INFINITIF & PARTICIPE)
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+-- Infinitifs
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'infinitive', 'active', NULL, 'aimer'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'infinitive', 'active', NULL, 'avoir aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'infinitive', 'passive', NULL, 'être aimé'),
+
+-- Participes
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'participle', 'active', NULL, 'aimant'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'participle', 'active', 'ms', 'aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'participle', 'passive', NULL, 'étant aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'participle', 'passive', NULL, 'ayant été aimé');
+
+-- FRANÇAIS ACTIF - PRÉSENT INDICATIF
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '1s', 'j''aime'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '2s', 'tu aimes'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3s', 'il/elle aime'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '1p', 'nous aimons'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '2p', 'vous aimez'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3p', 'ils/elles aiment');
+
+-- FRANÇAIS ACTIF - IMPARFAIT
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '1s', 'j''aimais'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '2s', 'tu aimais'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '3s', 'il/elle aimait'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '1p', 'nous aimions'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '2p', 'vous aimiez'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '3p', 'ils/elles aimaient');
+
+-- FRANÇAIS ACTIF - FUTUR
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '1s', 'j''aimerai'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '2s', 'tu aimeras'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '3s', 'il/elle aimera'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '1p', 'nous aimerons'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '2p', 'vous aimerez'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '3p', 'ils/elles aimeront');
+
+-- FRANÇAIS ACTIF - PASSÉ SIMPLE
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'active', '1s', 'j''aimai'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'active', '2s', 'tu aimas'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'active', '3s', 'il/elle aima'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'active', '1p', 'nous aimâmes'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'active', '2p', 'vous aimâtes'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'active', '3p', 'ils/elles aimèrent');
+
+-- FRANÇAIS ACTIF - PASSÉ COMPOSÉ
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'active', '1s', 'j''ai aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'active', '2s', 'tu as aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'active', '3s', 'il/elle a aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'active', '1p', 'nous avons aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'active', '2p', 'vous avez aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'active', '3p', 'ils/elles ont aimé');
+
+-- FRANÇAIS ACTIF - PLUS-QUE-PARFAIT
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '1s', 'j''avais aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '2s', 'tu avais aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '3s', 'il/elle avait aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '1p', 'nous avions aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '2p', 'vous aviez aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '3p', 'ils/elles avaient aimé');
+
+-- FRANÇAIS ACTIF - PASSÉ ANTÉRIEUR
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'active', '1s', 'j''eus aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'active', '2s', 'tu eus aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'active', '3s', 'il/elle eut aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'active', '1p', 'nous eûmes aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'active', '2p', 'vous eûtes aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'active', '3p', 'ils/elles eurent aimé');
+
+-- FRANÇAIS ACTIF - FUTUR ANTÉRIEUR
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'active', '1s', 'j''aurai aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'active', '2s', 'tu auras aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'active', '3s', 'il/elle aura aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'active', '1p', 'nous aurons aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'active', '2p', 'vous aurez aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'active', '3p', 'ils/elles auront aimé');
+
+-- FRANÇAIS ACTIF - SUBJONCTIF PRÉSENT
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'active', '1s', 'que j''aime'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'active', '2s', 'que tu aimes'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'active', '3s', 'qu''il/elle aime'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'active', '1p', 'que nous aimions'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'active', '2p', 'que vous aimiez'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'active', '3p', 'qu''ils/elles aiment');
+
+-- FRANÇAIS ACTIF - SUBJONCTIF IMPARFAIT
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'active', '1s', 'que j''aimasse'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'active', '2s', 'que tu aimasses'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'active', '3s', 'qu''il/elle aimât'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'active', '1p', 'que nous aimassions'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'active', '2p', 'que vous aimassiez'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'active', '3p', 'qu''ils/elles aimassent');
+
+-- FRANÇAIS ACTIF - SUBJONCTIF PASSÉ
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'active', '1s', 'que j''aie aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'active', '2s', 'que tu aies aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'active', '3s', 'qu''il/elle ait aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'active', '1p', 'que nous ayons aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'active', '2p', 'que vous ayez aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'active', '3p', 'qu''ils/elles aient aimé');
+
+-- FRANÇAIS ACTIF - SUBJONCTIF PLUS-QUE-PARFAIT
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'active', '1s', 'que j''eusse aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'active', '2s', 'que tu eusses aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'active', '3s', 'qu''il/elle eût aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'active', '1p', 'que nous eussions aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'active', '2p', 'que vous eussiez aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'active', '3p', 'qu''ils/elles eussent aimé');
+
+-- FRANÇAIS ACTIF - CONDITIONNEL PRÉSENT
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'active', '1s', 'j''aimerais'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'active', '2s', 'tu aimerais'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'active', '3s', 'il/elle aimerait'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'active', '1p', 'nous aimerions'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'active', '2p', 'vous aimeriez'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'active', '3p', 'ils/elles aimeraient');
+
+-- FRANÇAIS ACTIF - CONDITIONNEL PASSÉ 1
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'active', '1s', 'j''aurais aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'active', '2s', 'tu aurais aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'active', '3s', 'il/elle aurait aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'active', '1p', 'nous aurions aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'active', '2p', 'vous auriez aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'active', '3p', 'ils/elles auraient aimé');
+
+-- FRANÇAIS ACTIF - CONDITIONNEL PASSÉ 2
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'active', '1s', 'j''eusse aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'active', '2s', 'tu eusses aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'active', '3s', 'il/elle eût aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'active', '1p', 'nous eussions aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'active', '2p', 'vous eussiez aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'active', '3p', 'ils/elles eussent aimé');
+
+-- FRANÇAIS ACTIF - IMPÉRATIF
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'active', '2s', 'aime'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'active', '1p', 'aimons'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'active', '2p', 'aimez');
+-- ========================================
+-- FRANÇAIS PASSIF - TOUS LES TEMPS
+-- ========================================
+
+-- FRANÇAIS PASSIF - PRÉSENT INDICATIF
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'passive', '1s', 'je suis aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'passive', '2s', 'tu es aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'passive', '3s', 'il/elle est aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'passive', '1p', 'nous sommes aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'passive', '2p', 'vous êtes aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'passive', '3p', 'ils/elles sont aimés');
+
+-- FRANÇAIS PASSIF - IMPARFAIT
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'passive', '1s', 'j''étais aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'passive', '2s', 'tu étais aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'passive', '3s', 'il/elle était aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'passive', '1p', 'nous étions aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'passive', '2p', 'vous étiez aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'passive', '3p', 'ils/elles étaient aimés');
+
+-- FRANÇAIS PASSIF - FUTUR
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'passive', '1s', 'je serai aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'passive', '2s', 'tu seras aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'passive', '3s', 'il/elle sera aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'passive', '1p', 'nous serons aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'passive', '2p', 'vous serez aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'passive', '3p', 'ils/elles seront aimés');
+
+-- FRANÇAIS PASSIF - PASSÉ SIMPLE
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'passive', '1s', 'je fus aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'passive', '2s', 'tu fus aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'passive', '3s', 'il/elle fut aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'passive', '1p', 'nous fûmes aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'passive', '2p', 'vous fûtes aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'passive', '3p', 'ils/elles furent aimés');
+
+-- FRANÇAIS PASSIF - PASSÉ COMPOSÉ
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'passive', '1s', 'j''ai été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'passive', '2s', 'tu as été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'passive', '3s', 'il/elle a été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'passive', '1p', 'nous avons été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'passive', '2p', 'vous avez été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'passive', '3p', 'ils/elles ont été aimés');
+
+-- FRANÇAIS PASSIF - PLUS-QUE-PARFAIT
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'passive', '1s', 'j''avais été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'passive', '2s', 'tu avais été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'passive', '3s', 'il/elle avait été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'passive', '1p', 'nous avions été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'passive', '2p', 'vous aviez été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'passive', '3p', 'ils/elles avaient été aimés');
+
+-- FRANÇAIS PASSIF - PASSÉ ANTÉRIEUR
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'passive', '1s', 'j''eus été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'passive', '2s', 'tu eus été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'passive', '3s', 'il/elle eut été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'passive', '1p', 'nous eûmes été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'passive', '2p', 'vous eûtes été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'passive', '3p', 'ils/elles eurent été aimés');
+
+-- FRANÇAIS PASSIF - FUTUR ANTÉRIEUR
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'passive', '1s', 'j''aurai été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'passive', '2s', 'tu auras été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'passive', '3s', 'il/elle aura été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'passive', '1p', 'nous aurons été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'passive', '2p', 'vous aurez été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'passive', '3p', 'ils/elles auront été aimés');
+
+-- FRANÇAIS PASSIF - SUBJONCTIF PRÉSENT
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'passive', '1s', 'que je sois aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'passive', '2s', 'que tu sois aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'passive', '3s', 'qu''il/elle soit aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'passive', '1p', 'que nous soyons aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'passive', '2p', 'que vous soyez aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'passive', '3p', 'qu''ils/elles soient aimés');
+
+-- FRANÇAIS PASSIF - SUBJONCTIF IMPARFAIT
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'passive', '1s', 'que je fusse aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'passive', '2s', 'que tu fusses aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'passive', '3s', 'qu''il/elle fût aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'passive', '1p', 'que nous fussions aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'passive', '2p', 'que vous fussiez aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'passive', '3p', 'qu''ils/elles fussent aimés');
+
+-- FRANÇAIS PASSIF - SUBJONCTIF PASSÉ
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'passive', '1s', 'que j''aie été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'passive', '2s', 'que tu aies été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'passive', '3s', 'qu''il/elle ait été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'passive', '1p', 'que nous ayons été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'passive', '2p', 'que vous ayez été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'passive', '3p', 'qu''ils/elles aient été aimés');
+
+-- FRANÇAIS PASSIF - SUBJONCTIF PLUS-QUE-PARFAIT
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'passive', '1s', 'que j''eusse été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'passive', '2s', 'que tu eusses été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'passive', '3s', 'qu''il/elle eût été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'passive', '1p', 'que nous eussions été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'passive', '2p', 'que vous eussiez été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'passive', '3p', 'qu''ils/elles eussent été aimés');
+
+-- FRANÇAIS PASSIF - CONDITIONNEL PRÉSENT
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'passive', '1s', 'je serais aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'passive', '2s', 'tu serais aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'passive', '3s', 'il/elle serait aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'passive', '1p', 'nous serions aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'passive', '2p', 'vous seriez aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'passive', '3p', 'ils/elles seraient aimés');
+
+-- FRANÇAIS PASSIF - CONDITIONNEL PASSÉ 1
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'passive', '1s', 'j''aurais été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'passive', '2s', 'tu aurais été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'passive', '3s', 'il/elle aurait été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'passive', '1p', 'nous aurions été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'passive', '2p', 'vous auriez été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'passive', '3p', 'ils/elles auraient été aimés');
+
+-- FRANÇAIS PASSIF - CONDITIONNEL PASSÉ 2
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'passive', '1s', 'j''eusse été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'passive', '2s', 'tu eusses été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'passive', '3s', 'il/elle eût été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'passive', '1p', 'nous eussions été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'passive', '2p', 'vous eussiez été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'passive', '3p', 'ils/elles eussent été aimés');
+
+-- FRANÇAIS PASSIF - IMPÉRATIF
+INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'passive', '2s', 'sois aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'passive', '1p', 'soyons aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'passive', '2p', 'soyez aimés');
+
+-- ========================================
+-- FIN DU SEEDER
+-- ========================================
