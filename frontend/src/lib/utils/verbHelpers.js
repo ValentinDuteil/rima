@@ -16,7 +16,7 @@ export function groupByFirstLetter(verbs, sortType) {
     }
     groups[firstLetter].push(verb);
   });
-  
+
   return groups;
 }
 
@@ -34,3 +34,14 @@ export function groupByFirstLetter(verbs, sortType) {
 
     return objectGroup;
   }
+
+// Tri de la conjugaison pour l'affichage
+const personOrder = ['1s', '2s', '3s', '1p', '2p', '3p'];
+
+function sortByPerson(conjugations) {
+  return conjugations.sort((a, b) => {
+    const indexA = personOrder.indexOf(a.person);
+    const indexB = personOrder.indexOf(b.person);
+    return indexA - indexB;
+  });
+}
