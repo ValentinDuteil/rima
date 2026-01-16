@@ -16,6 +16,8 @@ export function groupByFirstLetter(verbs, sortType) {
     }
     groups[firstLetter].push(verb);
   });
+  
+  return groups;
 }
 
   // Groupe les conjugaisons en fonction des temps/voix/mode....etc

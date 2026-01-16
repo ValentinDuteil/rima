@@ -17,7 +17,7 @@
     }
 
     //Placer des séparateurs pour faciliter le parcours de la liste de verbes
-    const verbGroups = $derived(groupByFirstLetter(verbs, data.currentSort));
+    const verbGroups = $derived(groupByFirstLetter(verbs, data.currentSort) || {});
     // Si verbGroups = { "Α": [...], "Π": [...], "Σ": [...] }
     const letters = $derived(
         Object.keys(verbGroups).sort((a, b) => a.localeCompare(b, "fr-FR")),

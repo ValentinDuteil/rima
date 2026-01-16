@@ -19,7 +19,7 @@
   );
 
   // Groupement dynamique
-  let groupedVerbs = $derived(groupByFirstLetter(sortedVerbs, sidebarSort));
+  let groupedVerbs = $derived(groupByFirstLetter(sortedVerbs, sidebarSort) || {});
   let letters = $derived(
     Object.keys(groupedVerbs).sort((a, b) => a.localeCompare(b, "fr-FR")),
   );
