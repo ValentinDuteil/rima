@@ -1,4 +1,5 @@
 import { PUBLIC_API_URL } from '$env/static/public';
+import { error } from '@sveltejs/kit';
 
 export async function load({ params }) {
   const verbId = params.id;
@@ -16,19 +17,26 @@ export async function load({ params }) {
       fetch(frenchConj),
     ]);
 
-    if (!responseVerbUrl.ok || !responseConj.ok || !responseFrenchConj.ok) {
-      throw new Error('Erreur API');
+    if (!responseVerbUrl.ok || !responseConj.ok) {
+      throw error(404, 'Verbe non trouvé');
     }
-    const [verb, conjugations, frenchConjugations] = await Promise.all([
+    const [verb, conjugations] = await Promise.all([
       responseVerbUrl.json(),
       responseConj.json(),
-      responseFrenchConj.json(),
     ]);
+
+    let frenchConjugations = [];
+    if (responseFrenchConj.ok) {
+      frenchConjugations = await responseFrenchConj.json();
+    }
 
     return { verb, conjugations, frenchConjugations };
 
-  } catch (error) {
-    console.error('Erreur chargement verbes:', error);
+  } catch (err) {
+    if (err.status) {
+      throw err;
+    }
+    console.error('Erreur chargement verbes:', err);
     return {
       verb: null,
       conjugations: null,

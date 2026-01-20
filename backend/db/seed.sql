@@ -48,7 +48,7 @@ CREATE TABLE french_conjugations (
     verb_id INTEGER,
     tense VARCHAR(50) NOT NULL,
     mood VARCHAR(50) NOT NULL,
-    person VARCHAR(10) NOT NULL,
+    person VARCHAR(10),
     form VARCHAR(100) NOT NULL,
     voice VARCHAR(50),
     is_alternative_form BOOLEAN DEFAULT FALSE,
