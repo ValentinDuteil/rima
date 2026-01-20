@@ -30,7 +30,7 @@ let groupedFrench = $derived(safeGroupConjugations(data.frenchConjugations));
 {#if Object.keys(groupedGreek).length > 0}
   {#each Object.entries(groupedGreek) as [groupName, forms]}
     <div class="conj-group">
-      <h3>{groupName}</h3>
+      <h3>{translateLabel(groupName)}</h3>
       <div class="forms">
         {#each forms as conj}
           <div class="form-item">
@@ -50,7 +50,7 @@ let groupedFrench = $derived(safeGroupConjugations(data.frenchConjugations));
 {#if Object.keys(groupedFrench).length > 0}
   {#each Object.entries(groupedFrench) as [groupName, forms]}
     <div class="conj-group">
-      <h3>{groupName}</h3>
+      <h3>{translateLabel(groupName)}</h3>
       <div class="forms">
         {#each forms as conj}
           <div class="form-item">
