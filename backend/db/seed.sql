@@ -404,7 +404,7 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 
 -- Participes
 ((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'participle', 'active', NULL, 'αγαπώντας'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'participle', 'mediopassive', '3s', 'αγαπημένος');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'participle', 'mediopassive', NULL, 'αγαπημένος');
 
 -- ========================================
 -- GREC ACTIF - PRÉSENT INDICATIF
@@ -883,6 +883,13 @@ INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALU
 ((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'passive', '2s', 'sois aimé'),
 ((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'passive', '1p', 'soyons aimés'),
 ((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'passive', '2p', 'soyez aimés');
+
+-- ========================================
+-- PERMISSIONS POUR RIMA1
+-- ========================================
+
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO rima1;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO rima1;
 
 -- ========================================
 -- FIN DU SEEDER

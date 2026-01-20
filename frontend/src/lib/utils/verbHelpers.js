@@ -35,13 +35,19 @@ export function groupByFirstLetter(verbs, sortType) {
     return objectGroup;
   }
 
-// Tri de la conjugaison pour l'affichage
-const personOrder = ['1s', '2s', '3s', '1p', '2p', '3p'];
+//Tri des personnes dans les tableaux de conjugaison
 
-function sortByPerson(conjugations) {
+/**
+ * Trie les conjugaisons par ordre de personne
+ * @param {Array} conjugations - Tableau de conjugaisons
+ * @returns {Array} - Tableau trié
+ */
+
+export function sortPersons(conjugations) {
+  const reference = ['1s', '2s', '3s', '1p', '2p', '3p'];
   return conjugations.sort((a, b) => {
-    const indexA = personOrder.indexOf(a.person);
-    const indexB = personOrder.indexOf(b.person);
-    return indexA - indexB;
-  });
-}
+    const indexA = reference.indexOf(a.person);
+    const indexB = reference.indexOf(b.person);
+    return indexA - indexB; 
+  })
+};
