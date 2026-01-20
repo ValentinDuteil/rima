@@ -1,5 +1,5 @@
 <script>
-import { groupConjugations } from '$lib/utils/verbHelpers';
+import { groupConjugations, sortPersons } from '$lib/utils/verbHelpers';
 import { translateLabel } from '$lib/utils/labelHelpers';
 
 // Fonction de protection pour éviter les erreurs si les données sont null
@@ -32,7 +32,7 @@ let groupedFrench = $derived(safeGroupConjugations(data.frenchConjugations));
     <div class="conj-group">
       <h3>{translateLabel(groupName)}</h3>
       <div class="forms">
-        {#each forms as conj}
+        {#each sortPersons(forms) as conj}
           <div class="form-item">
             <span class="person">{conj.person}</span>
             <span class="form">{conj.form}</span>
@@ -52,7 +52,7 @@ let groupedFrench = $derived(safeGroupConjugations(data.frenchConjugations));
     <div class="conj-group">
       <h3>{translateLabel(groupName)}</h3>
       <div class="forms">
-        {#each forms as conj}
+        {#each sortPersons(forms) as conj}
           <div class="form-item">
             <span class="person">{conj.person}</span>
             <span class="form">{conj.form}</span>
