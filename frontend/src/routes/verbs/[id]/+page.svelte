@@ -1,5 +1,6 @@
 <script>
 import { groupConjugations } from '$lib/utils/verbHelpers';
+import { translateLabel } from '$lib/utils/labelHelpers';
 
 // Fonction de protection pour éviter les erreurs si les données sont null
 function safeGroupConjugations(conjugations) {

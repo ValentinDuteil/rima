@@ -29,6 +29,12 @@ export const voiceMapping = {
   passive: 'Passif'
 };
 
+/**
+ * Traduit une clé composée (ex: "present-indicative-active")
+ * @param {string} key - Clé à traduire
+ * @returns {string} - Label traduit (ex: "Présent Indicatif Actif")
+ */
+
 export function translateLabel(key) {
   const [tense, mood, voice] = key.split('-');
   
