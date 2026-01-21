@@ -40,6 +40,7 @@ CREATE TABLE conjugations (
     person VARCHAR(50),
     form VARCHAR(50),
     is_alternative_form BOOLEAN DEFAULT FALSE,
+    variant_group VARCHAR(20) DEFAULT 'contracted',
     CONSTRAINT fk_conjugations_verbs FOREIGN KEY (verb_id) REFERENCES verbs(id) ON DELETE CASCADE
 );
 
@@ -52,6 +53,7 @@ CREATE TABLE french_conjugations (
     form VARCHAR(100) NOT NULL,
     voice VARCHAR(50),
     is_alternative_form BOOLEAN DEFAULT FALSE,
+    variant_group VARCHAR(20) DEFAULT 'standard',
     CONSTRAINT french_conjugations_verb_id_fkey FOREIGN KEY (verb_id) REFERENCES verbs(id) ON DELETE CASCADE
 );
 
@@ -388,200 +390,350 @@ INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'φταίω'), 'present', 'indicative', 'active', '3p', 'φταίνε');
 
 -- ========================================
--- ΑΓΑΠΆΩ (AIMER) - CONJUGAISONS COMPLÈTES
--- Verbe modèle du Groupe B1
+-- VERBE: αγαπάω / αγαπώ (aimer) - ID 26
+-- Conjugaisons COMPLÈTES avec toutes les variantes
 -- ========================================
 
-INSERT INTO verbs (greek, "group") VALUES ('αγαπάω', 'B1');
+INSERT INTO verbs (greek, "group", is_irregular) VALUES ('αγαπάω', 'B1', false);
+
 INSERT INTO translations (verb_id, language, translation) VALUES
 ((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'français', 'aimer');
 
--- GREC - FORMES NOMINALES (INFINITIF & PARTICIPE)
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
--- Infinitifs (utilisés pour les temps composés)
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'infinitive', 'active', NULL, 'αγαπήσει'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'infinitive', 'mediopassive', NULL, 'αγαπηθεί'),
-
--- Participes
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'participle', 'active', NULL, 'αγαπώντας'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'participle', 'mediopassive', NULL, 'αγαπημένος');
-
 -- ========================================
--- GREC ACTIF - PRÉSENT INDICATIF
--- Avec formes alternatives (Gemini)
+-- 1. PRÉSENT INDICATIF ACTIF
 -- ========================================
 
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '1s', 'αγαπώ', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '1s', 'αγαπάω', TRUE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '2s', 'αγαπάς', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3s', 'αγαπά', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3s', 'αγαπάει', TRUE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '1p', 'αγαπούμε', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '1p', 'αγαπάμε', TRUE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '2p', 'αγαπάτε', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3p', 'αγαπούν', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3p', 'αγαπούνε', TRUE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3p', 'αγαπάνε', TRUE);
-
--- GREC ACTIF - FUTUR
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '1s', 'θα αγαπήσω'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '2s', 'θα αγαπήσεις'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '3s', 'θα αγαπήσει'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '1p', 'θα αγαπήσουμε'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '2p', 'θα αγαπήσετε'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '3p', 'θα αγαπήσουν');
-
--- GREC ACTIF - AORISTE
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'active', '1s', 'αγάπησα'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'active', '2s', 'αγάπησες'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'active', '3s', 'αγάπησε'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'active', '1p', 'αγαπήσαμε'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'active', '2p', 'αγαπήσατε'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'active', '3p', 'αγάπησαν');
-
--- GREC ACTIF - IMPARFAIT
--- Avec formes familières (Gemini)
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '1s', 'αγαπούσα', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '1s', 'αγάπαγα', TRUE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '2s', 'αγαπούσες', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '2s', 'αγάπαγες', TRUE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '3s', 'αγαπούσε', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '3s', 'αγάπαγε', TRUE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '1p', 'αγαπούσαμε', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '1p', 'αγαπάγαμε', TRUE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '2p', 'αγαπούσατε', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '2p', 'αγαπάγατε', TRUE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '3p', 'αγαπούσαν', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '3p', 'αγαπούσανε', TRUE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '3p', 'αγάπαγαν', TRUE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '3p', 'αγάπαγανε', TRUE);
-
--- GREC ACTIF - IMPÉRATIF PRÉSENT
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'active', '2s', 'αγάπα'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'active', '2p', 'αγαπάτε');
-
--- GREC ACTIF - IMPÉRATIF AORISTE
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'imperative', 'active', '2s', 'αγάπησε'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'imperative', 'active', '2p', 'αγαπήστε');
-
--- GREC ACTIF - SUBJONCTIF AORISTE
--- Avec variantes -ουν/-ουνε (Gemini)
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'active', '1s', 'να αγαπήσω', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'active', '2s', 'να αγαπήσεις', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'active', '3s', 'να αγαπήσει', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'active', '1p', 'να αγαπήσουμε', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'active', '2p', 'να αγαπήσετε', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'active', '3p', 'να αγαπήσουν', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'active', '3p', 'να αγαπήσουνε', TRUE);
-
--- GREC ACTIF - PARFAIT
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'active', '1s', 'έχω αγαπήσει'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'active', '2s', 'έχεις αγαπήσει'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'active', '3s', 'έχει αγαπήσει'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'active', '1p', 'έχουμε αγαπήσει'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'active', '2p', 'έχετε αγαπήσει'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'active', '3p', 'έχουν αγαπήσει');
-
--- GREC ACTIF - PLUS-QUE-PARFAIT
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '1s', 'είχα αγαπήσει'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '2s', 'είχες αγαπήσει'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '3s', 'είχε αγαπήσει'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '1p', 'είχαμε αγαπήσει'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '2p', 'είχατε αγαπήσει'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '3p', 'είχαν αγαπήσει');
+-- Groupe 'contracted' (formes principales basées sur αγαπώ)
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'present', 'indicative', 'active', '1s', 'αγαπώ', false, 'contracted'),
+    (26, 'present', 'indicative', 'active', '2s', 'αγαπάς', false, 'contracted'),
+    (26, 'present', 'indicative', 'active', '3s', 'αγαπά', false, 'contracted'),
+    (26, 'present', 'indicative', 'active', '1p', 'αγαπούμε', false, 'contracted'),
+    (26, 'present', 'indicative', 'active', '2p', 'αγαπάτε', false, 'contracted'),
+    (26, 'present', 'indicative', 'active', '3p', 'αγαπούν', false, 'contracted'),
+    
+    -- Formes alternatives 'contracted' (variante avec -νε mobile)
+    (26, 'present', 'indicative', 'active', '3p', 'αγαπούνε', true, 'contracted'),
+    
+    -- Groupe 'modern' (formes alternatives basées sur αγαπάω)
+    (26, 'present', 'indicative', 'active', '1s', 'αγαπάω', true, 'modern'),
+    (26, 'present', 'indicative', 'active', '3s', 'αγαπάει', true, 'modern'),
+    (26, 'present', 'indicative', 'active', '1p', 'αγαπάμε', true, 'modern'),
+    (26, 'present', 'indicative', 'active', '3p', 'αγαπάνε', true, 'modern');
 
 -- ========================================
--- GREC MÉDIO-PASSIF - PRÉSENT INDICATIF
--- Avec variantes (Gemini)
+-- 2. IMPARFAIT INDICATIF ACTIF
 -- ========================================
 
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'mediopassive', '1s', 'αγαπιέμαι', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'mediopassive', '2s', 'αγαπιέσαι', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'mediopassive', '3s', 'αγαπιέται', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'mediopassive', '1p', 'αγαπιόμαστε', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'mediopassive', '2p', 'αγαπιέστε', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'mediopassive', '2p', 'αγαπιόσαστε', TRUE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'mediopassive', '3p', 'αγαπιούνται', FALSE);
+-- Groupe 'modern_ousa' (Le plus courant à l'oral)
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'imperfect', 'indicative', 'active', '1s', 'αγαπούσα', false, 'modern_ousa'),
+    (26, 'imperfect', 'indicative', 'active', '2s', 'αγαπούσες', false, 'modern_ousa'),
+    (26, 'imperfect', 'indicative', 'active', '3s', 'αγαπούσε', false, 'modern_ousa'),
+    (26, 'imperfect', 'indicative', 'active', '1p', 'αγαπούσαμε', false, 'modern_ousa'),
+    (26, 'imperfect', 'indicative', 'active', '2p', 'αγαπούσατε', false, 'modern_ousa'),
+    (26, 'imperfect', 'indicative', 'active', '3p', 'αγαπούσαν', false, 'modern_ousa'),
+    
+    -- Variante avec -νε mobile pour modern_ousa
+    (26, 'imperfect', 'indicative', 'active', '3p', 'αγαπούσανε', true, 'modern_ousa');
 
--- GREC MÉDIO-PASSIF - FUTUR
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'mediopassive', '1s', 'θα αγαπηθώ'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'mediopassive', '2s', 'θα αγαπηθείς'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'mediopassive', '3s', 'θα αγαπηθεί'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'mediopassive', '1p', 'θα αγαπηθούμε'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'mediopassive', '2p', 'θα αγαπηθείτε'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'mediopassive', '3p', 'θα αγαπηθούν');
+-- Groupe 'traditional_aga' (Variante très utilisée)
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'imperfect', 'indicative', 'active', '1s', 'αγάπαγα', true, 'traditional_aga'),
+    (26, 'imperfect', 'indicative', 'active', '2s', 'αγάπαγες', true, 'traditional_aga'),
+    (26, 'imperfect', 'indicative', 'active', '3s', 'αγάπαγε', true, 'traditional_aga'),
+    (26, 'imperfect', 'indicative', 'active', '1p', 'αγαπάγαμε', true, 'traditional_aga'),
+    (26, 'imperfect', 'indicative', 'active', '2p', 'αγαπάγατε', true, 'traditional_aga'),
+    (26, 'imperfect', 'indicative', 'active', '3p', 'αγάπαγαν', true, 'traditional_aga'),
+    
+    -- Variante avec -νε mobile pour traditional_aga
+    (26, 'imperfect', 'indicative', 'active', '3p', 'αγαπάγανε', true, 'traditional_aga');
 
--- GREC MÉDIO-PASSIF - AORISTE
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'mediopassive', '1s', 'αγαπήθηκα'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'mediopassive', '2s', 'αγαπήθηκες'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'mediopassive', '3s', 'αγαπήθηκε'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'mediopassive', '1p', 'αγαπηθήκαμε'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'mediopassive', '2p', 'αγαπηθήκατε'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'indicative', 'mediopassive', '3p', 'αγαπήθηκαν');
+-- ========================================
+-- 3. AORISTE (PASSÉ SIMPLE) INDICATIF ACTIF
+-- ========================================
 
--- GREC MÉDIO-PASSIF - IMPARFAIT
--- Avec variantes (Gemini)
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '1s', 'αγαπιόμουν', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '2s', 'αγαπιόσουν', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '3s', 'αγαπιόταν', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '1p', 'αγαπιόμαστε', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '1p', 'αγαπιόμασταν', TRUE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '2p', 'αγαπιόσαστε', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '2p', 'αγαπιόσασταν', TRUE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '3p', 'αγαπιόνταν', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '3p', 'αγαπιούνταν', TRUE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'mediopassive', '3p', 'αγαπιόντουσαν', TRUE);
+-- Groupe 'standard'
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'aorist', 'indicative', 'active', '1s', 'αγάπησα', false, 'standard'),
+    (26, 'aorist', 'indicative', 'active', '2s', 'αγάπησες', false, 'standard'),
+    (26, 'aorist', 'indicative', 'active', '3s', 'αγάπησε', false, 'standard'),
+    (26, 'aorist', 'indicative', 'active', '1p', 'αγαπήσαμε', false, 'standard'),
+    (26, 'aorist', 'indicative', 'active', '2p', 'αγαπήσατε', false, 'standard'),
+    (26, 'aorist', 'indicative', 'active', '3p', 'αγάπησαν', false, 'standard'),
+    
+    -- Variante mobile -νε
+    (26, 'aorist', 'indicative', 'active', '3p', 'αγάπησανε', true, 'movable_ne');
 
--- GREC MÉDIO-PASSIF - IMPÉRATIF PRÉSENT
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'mediopassive', '2p', 'αγαπιέστε');
+-- ========================================
+-- 4. FUTUR INDICATIF ACTIF
+-- ========================================
 
--- GREC MÉDIO-PASSIF - IMPÉRATIF AORISTE
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'imperative', 'mediopassive', '2s', 'αγαπήσου'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'imperative', 'mediopassive', '2p', 'αγαπηθείτε');
+-- Groupe 'standard'
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'future', 'indicative', 'active', '1s', 'θα αγαπήσω', false, 'standard'),
+    (26, 'future', 'indicative', 'active', '2s', 'θα αγαπήσεις', false, 'standard'),
+    (26, 'future', 'indicative', 'active', '3s', 'θα αγαπήσει', false, 'standard'),
+    (26, 'future', 'indicative', 'active', '1p', 'θα αγαπήσουμε', false, 'standard'),
+    (26, 'future', 'indicative', 'active', '2p', 'θα αγαπήσετε', false, 'standard'),
+    (26, 'future', 'indicative', 'active', '3p', 'θα αγαπήσουν', false, 'standard'),
+    
+    -- Variante mobile -νε
+    (26, 'future', 'indicative', 'active', '3p', 'θα αγαπήσουνε', true, 'movable_ne');
 
--- GREC MÉDIO-PASSIF - SUBJONCTIF AORISTE
--- Avec variantes -ουν/-ουνε (Gemini)
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'mediopassive', '1s', 'να αγαπηθώ', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'mediopassive', '2s', 'να αγαπηθείς', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'mediopassive', '3s', 'να αγαπηθεί', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'mediopassive', '1p', 'να αγαπηθούμε', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'mediopassive', '2p', 'να αγαπηθείτε', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'mediopassive', '3p', 'να αγαπηθούν', FALSE),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'aorist', 'subjunctive', 'mediopassive', '3p', 'να αγαπηθούνε', TRUE);
+-- ========================================
+-- 5. PARFAIT INDICATIF ACTIF
+-- ========================================
 
--- GREC MÉDIO-PASSIF - PARFAIT
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'mediopassive', '1s', 'έχω αγαπηθεί'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'mediopassive', '2s', 'έχεις αγαπηθεί'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'mediopassive', '3s', 'έχει αγαπηθεί'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'mediopassive', '1p', 'έχουμε αγαπηθεί'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'mediopassive', '2p', 'έχετε αγαπηθεί'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'perfect', 'indicative', 'mediopassive', '3p', 'έχουν αγαπηθεί');
+-- Groupe 'standard'
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'perfect', 'indicative', 'active', '1s', 'έχω αγαπήσει', false, 'standard'),
+    (26, 'perfect', 'indicative', 'active', '2s', 'έχεις αγαπήσει', false, 'standard'),
+    (26, 'perfect', 'indicative', 'active', '3s', 'έχει αγαπήσει', false, 'standard'),
+    (26, 'perfect', 'indicative', 'active', '1p', 'έχουμε αγαπήσει', false, 'standard'),
+    (26, 'perfect', 'indicative', 'active', '2p', 'έχετε αγαπήσει', false, 'standard'),
+    (26, 'perfect', 'indicative', 'active', '3p', 'έχουν αγαπήσει', false, 'standard'),
+    
+    -- Variante mobile -νε
+    (26, 'perfect', 'indicative', 'active', '3p', 'έχουνε αγαπήσει', true, 'movable_ne');
 
--- GREC MÉDIO-PASSIF - PLUS-QUE-PARFAIT
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'mediopassive', '1s', 'είχα αγαπηθεί'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'mediopassive', '2s', 'είχες αγαπηθεί'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'mediopassive', '3s', 'είχε αγαπηθεί'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'mediopassive', '1p', 'είχαμε αγαπηθεί'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'mediopassive', '2p', 'είχατε αγαπηθεί'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'mediopassive', '3p', 'είχαν αγαπηθεί');
+-- ========================================
+-- 6. PLUS-QUE-PARFAIT INDICATIF ACTIF
+-- ========================================
+
+-- Groupe 'standard'
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'pluperfect', 'indicative', 'active', '1s', 'είχα αγαπήσει', false, 'standard'),
+    (26, 'pluperfect', 'indicative', 'active', '2s', 'είχες αγαπήσει', false, 'standard'),
+    (26, 'pluperfect', 'indicative', 'active', '3s', 'είχε αγαπήσει', false, 'standard'),
+    (26, 'pluperfect', 'indicative', 'active', '1p', 'είχαμε αγαπήσει', false, 'standard'),
+    (26, 'pluperfect', 'indicative', 'active', '2p', 'είχατε αγαπήσει', false, 'standard'),
+    (26, 'pluperfect', 'indicative', 'active', '3p', 'είχαν αγαπήσει', false, 'standard'),
+    
+    -- Variante mobile -νε
+    (26, 'pluperfect', 'indicative', 'active', '3p', 'είχανε αγαπήσει', true, 'movable_ne');
+
+-- ========================================
+-- 7. PRÉSENT SUBJONCTIF ACTIF
+-- ========================================
+
+-- Groupe 'standard'
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'present', 'subjunctive', 'active', '1s', 'να αγαπώ', false, 'standard'),
+    (26, 'present', 'subjunctive', 'active', '2s', 'να αγαπάς', false, 'standard'),
+    (26, 'present', 'subjunctive', 'active', '3s', 'να αγαπά', false, 'standard'),
+    (26, 'present', 'subjunctive', 'active', '1p', 'να αγαπούμε', false, 'standard'),
+    (26, 'present', 'subjunctive', 'active', '2p', 'να αγαπάτε', false, 'standard'),
+    (26, 'present', 'subjunctive', 'active', '3p', 'να αγαπούν', false, 'standard'),
+    
+    -- Variante mobile -νε
+    (26, 'present', 'subjunctive', 'active', '3p', 'να αγαπούνε', true, 'movable_ne');
+
+-- ========================================
+-- 8. AORISTE SUBJONCTIF ACTIF
+-- ========================================
+
+-- Groupe 'standard'
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'aorist', 'subjunctive', 'active', '1s', 'να αγαπήσω', false, 'standard'),
+    (26, 'aorist', 'subjunctive', 'active', '2s', 'να αγαπήσεις', false, 'standard'),
+    (26, 'aorist', 'subjunctive', 'active', '3s', 'να αγαπήσει', false, 'standard'),
+    (26, 'aorist', 'subjunctive', 'active', '1p', 'να αγαπήσουμε', false, 'standard'),
+    (26, 'aorist', 'subjunctive', 'active', '2p', 'να αγαπήσετε', false, 'standard'),
+    (26, 'aorist', 'subjunctive', 'active', '3p', 'να αγαπήσουν', false, 'standard'),
+    
+    -- Variante mobile -νε
+    (26, 'aorist', 'subjunctive', 'active', '3p', 'να αγαπήσουνε', true, 'movable_ne');
+
+-- ========================================
+-- 9. IMPÉRATIF ACTIF
+-- ========================================
+
+-- Groupe 'standard' (Aoriste)
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'aorist', 'imperative', 'active', '2s', 'αγάπησε', false, 'standard'),
+    (26, 'aorist', 'imperative', 'active', '2p', 'αγαπήστε', false, 'standard'),
+    
+    -- Forme archaïque/formelle
+    (26, 'aorist', 'imperative', 'active', '2p', 'αγαπήσατε', true, 'formal');
+
+-- Groupe 'standard' (Présent continu)
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'present', 'imperative', 'active', '2s', 'αγάπα', false, 'standard'),
+    (26, 'present', 'imperative', 'active', '2p', 'αγαπάτε', false, 'standard');
+
+-- ========================================
+-- 10. INFINITIF ACTIF
+-- ========================================
+
+-- Groupe 'standard'
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'present', 'infinitive', 'active', NULL, 'αγαπάω', false, 'standard'),
+    (26, 'aorist', 'infinitive', 'active', NULL, 'αγαπήσει', false, 'standard');
+
+-- ========================================
+-- 11. PARTICIPE ACTIF
+-- ========================================
+
+-- Groupe 'standard'
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'present', 'participle', 'active', NULL, 'αγαπώντας', false, 'standard');
+
+-- ========================================
+-- 12. PRÉSENT INDICATIF MÉDIO-PASSIF
+-- ========================================
+
+-- Groupe 'standard'
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'present', 'indicative', 'mediopassive', '1s', 'αγαπιέμαι', false, 'standard'),
+    (26, 'present', 'indicative', 'mediopassive', '2s', 'αγαπιέσαι', false, 'standard'),
+    (26, 'present', 'indicative', 'mediopassive', '3s', 'αγαπιέται', false, 'standard'),
+    (26, 'present', 'indicative', 'mediopassive', '1p', 'αγαπιόμαστε', false, 'standard'),
+    (26, 'present', 'indicative', 'mediopassive', '2p', 'αγαπιέστε', false, 'standard'),
+    (26, 'present', 'indicative', 'mediopassive', '3p', 'αγαπιούνται', false, 'standard'),
+    
+    -- Variantes familières/orales
+    (26, 'present', 'indicative', 'mediopassive', '2p', 'αγαπιόσαστε', true, 'oral'),
+    (26, 'present', 'indicative', 'mediopassive', '3p', 'αγαπιούνε', true, 'movable_ne');
+
+-- ========================================
+-- 13. IMPARFAIT INDICATIF MÉDIO-PASSIF
+-- ========================================
+
+-- Groupe 'standard'
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'imperfect', 'indicative', 'mediopassive', '1s', 'αγαπιόμουν', false, 'standard'),
+    (26, 'imperfect', 'indicative', 'mediopassive', '2s', 'αγαπιόσουν', false, 'standard'),
+    (26, 'imperfect', 'indicative', 'mediopassive', '3s', 'αγαπιόταν', false, 'standard'),
+    (26, 'imperfect', 'indicative', 'mediopassive', '1p', 'αγαπιόμασταν', false, 'standard'),
+    (26, 'imperfect', 'indicative', 'mediopassive', '2p', 'αγαπιόσασταν', false, 'standard'),
+    (26, 'imperfect', 'indicative', 'mediopassive', '3p', 'αγαπιόντουσαν', false, 'standard'),
+    
+    -- Variantes
+    (26, 'imperfect', 'indicative', 'mediopassive', '3p', 'αγαπιόνταν', true, 'contracted');
+
+-- ========================================
+-- 14. AORISTE INDICATIF MÉDIO-PASSIF
+-- ========================================
+
+-- Groupe 'standard'
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'aorist', 'indicative', 'mediopassive', '1s', 'αγαπήθηκα', false, 'standard'),
+    (26, 'aorist', 'indicative', 'mediopassive', '2s', 'αγαπήθηκες', false, 'standard'),
+    (26, 'aorist', 'indicative', 'mediopassive', '3s', 'αγαπήθηκε', false, 'standard'),
+    (26, 'aorist', 'indicative', 'mediopassive', '1p', 'αγαπηθήκαμε', false, 'standard'),
+    (26, 'aorist', 'indicative', 'mediopassive', '2p', 'αγαπηθήκατε', false, 'standard'),
+    (26, 'aorist', 'indicative', 'mediopassive', '3p', 'αγαπήθηκαν', false, 'standard'),
+    
+    -- Variante mobile -νε
+    (26, 'aorist', 'indicative', 'mediopassive', '3p', 'αγαπήθηκανε', true, 'movable_ne');
+
+-- ========================================
+-- 15. FUTUR INDICATIF MÉDIO-PASSIF
+-- ========================================
+
+-- Groupe 'standard'
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'future', 'indicative', 'mediopassive', '1s', 'θα αγαπηθώ', false, 'standard'),
+    (26, 'future', 'indicative', 'mediopassive', '2s', 'θα αγαπηθείς', false, 'standard'),
+    (26, 'future', 'indicative', 'mediopassive', '3s', 'θα αγαπηθεί', false, 'standard'),
+    (26, 'future', 'indicative', 'mediopassive', '1p', 'θα αγαπηθούμε', false, 'standard'),
+    (26, 'future', 'indicative', 'mediopassive', '2p', 'θα αγαπηθείτε', false, 'standard'),
+    (26, 'future', 'indicative', 'mediopassive', '3p', 'θα αγαπηθούν', false, 'standard'),
+    
+    -- Variante mobile -νε
+    (26, 'future', 'indicative', 'mediopassive', '3p', 'θα αγαπηθούνε', true, 'movable_ne');
+
+-- ========================================
+-- 16. PARFAIT INDICATIF MÉDIO-PASSIF
+-- ========================================
+
+-- Groupe 'standard'
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'perfect', 'indicative', 'mediopassive', '1s', 'έχω αγαπηθεί', false, 'standard'),
+    (26, 'perfect', 'indicative', 'mediopassive', '2s', 'έχεις αγαπηθεί', false, 'standard'),
+    (26, 'perfect', 'indicative', 'mediopassive', '3s', 'έχει αγαπηθεί', false, 'standard'),
+    (26, 'perfect', 'indicative', 'mediopassive', '1p', 'έχουμε αγαπηθεί', false, 'standard'),
+    (26, 'perfect', 'indicative', 'mediopassive', '2p', 'έχετε αγαπηθεί', false, 'standard'),
+    (26, 'perfect', 'indicative', 'mediopassive', '3p', 'έχουν αγαπηθεί', false, 'standard'),
+    
+    -- Variante mobile -νε
+    (26, 'perfect', 'indicative', 'mediopassive', '3p', 'έχουνε αγαπηθεί', true, 'movable_ne');
+
+-- ========================================
+-- 17. PRÉSENT SUBJONCTIF MÉDIO-PASSIF
+-- ========================================
+
+-- Groupe 'standard'
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'present', 'subjunctive', 'mediopassive', '1s', 'να αγαπιέμαι', false, 'standard'),
+    (26, 'present', 'subjunctive', 'mediopassive', '2s', 'να αγαπιέσαι', false, 'standard'),
+    (26, 'present', 'subjunctive', 'mediopassive', '3s', 'να αγαπιέται', false, 'standard'),
+    (26, 'present', 'subjunctive', 'mediopassive', '1p', 'να αγαπιόμαστε', false, 'standard'),
+    (26, 'present', 'subjunctive', 'mediopassive', '2p', 'να αγαπιέστε', false, 'standard'),
+    (26, 'present', 'subjunctive', 'mediopassive', '3p', 'να αγαπιούνται', false, 'standard'),
+    
+    -- Variante mobile -νε
+    (26, 'present', 'subjunctive', 'mediopassive', '3p', 'να αγαπιούνε', true, 'movable_ne');
+
+-- ========================================
+-- 18. AORISTE SUBJONCTIF MÉDIO-PASSIF
+-- ========================================
+
+-- Groupe 'standard'
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'aorist', 'subjunctive', 'mediopassive', '1s', 'να αγαπηθώ', false, 'standard'),
+    (26, 'aorist', 'subjunctive', 'mediopassive', '2s', 'να αγαπηθείς', false, 'standard'),
+    (26, 'aorist', 'subjunctive', 'mediopassive', '3s', 'να αγαπηθεί', false, 'standard'),
+    (26, 'aorist', 'subjunctive', 'mediopassive', '1p', 'να αγαπηθούμε', false, 'standard'),
+    (26, 'aorist', 'subjunctive', 'mediopassive', '2p', 'να αγαπηθείτε', false, 'standard'),
+    (26, 'aorist', 'subjunctive', 'mediopassive', '3p', 'να αγαπηθούν', false, 'standard'),
+    
+    -- Variante mobile -νε
+    (26, 'aorist', 'subjunctive', 'mediopassive', '3p', 'να αγαπηθούνε', true, 'movable_ne');
+
+-- ========================================
+-- 19. IMPÉRATIF MÉDIO-PASSIF
+-- ========================================
+
+-- Groupe 'standard'
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'present', 'imperative', 'mediopassive', '2s', 'αγαπιέσαι', false, 'standard'),
+    (26, 'present', 'imperative', 'mediopassive', '2p', 'αγαπιέστε', false, 'standard'),
+    (26, 'aorist', 'imperative', 'mediopassive', '2s', 'αγαπήσου', false, 'standard'),
+    (26, 'aorist', 'imperative', 'mediopassive', '2p', 'αγαπηθείτε', false, 'standard');
+
+-- ========================================
+-- 20. PARTICIPE MÉDIO-PASSIF
+-- ========================================
+
+-- Groupe 'standard'
+INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
+VALUES 
+    (26, 'present', 'participle', 'mediopassive', NULL, 'αγαπιόμενος', false, 'standard'),
+    (26, 'perfect', 'participle', 'mediopassive', NULL, 'αγαπημένος', false, 'standard');
+
 -- ========================================
 -- FRANÇAIS ACTIF - TOUS LES TEMPS
 -- ========================================
