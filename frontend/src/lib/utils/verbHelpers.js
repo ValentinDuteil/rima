@@ -36,7 +36,6 @@ export function groupByFirstLetter(verbs, sortType) {
   }
 
 //Tri des personnes dans les tableaux de conjugaison
-
 /**
  * Trie les conjugaisons par ordre de personne
  * @param {Array} conjugations - Tableau de conjugaisons
@@ -50,4 +49,23 @@ export function sortPersons(conjugations) {
     const indexB = reference.indexOf(b.person);
     return indexA - indexB; 
   })
+};
+
+//Groupement des variantes de verbes, et des variantes par personnes
+export function groupByVariant(conjugations) {
+  const groups = {};
+  
+  for (const conj of conjugations) {
+    if (!groups[conj.variant_group]) {
+      groups[conj.variant_group] = {};
+    }
+    
+    if (!groups[conj.variant_group][conj.person]) {
+      groups[conj.variant_group][conj.person] = [];
+    }
+    
+    groups[conj.variant_group][conj.person].push(conj.form);
+  }
+  
+  return groups;
 };

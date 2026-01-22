@@ -489,31 +489,6 @@ VALUES
     (26, 'future', 'indicative', 'active', '3p', 'θα αγαπήσουνε', true, 'movable_ne');
 
 -- ========================================
--- NOUVEAU : FUTUR CONTINU ACTIF (Εξακολουθητικός Μέλλοντας)
--- ========================================
-
--- Groupe 'contracted'
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
-VALUES 
-    (26, 'future_continuous', 'indicative', 'active', '1s', 'θα αγαπώ', false, 'contracted'),
-    (26, 'future_continuous', 'indicative', 'active', '2s', 'θα αγαπάς', false, 'contracted'),
-    (26, 'future_continuous', 'indicative', 'active', '3s', 'θα αγαπά', false, 'contracted'),
-    (26, 'future_continuous', 'indicative', 'active', '1p', 'θα αγαπούμε', false, 'contracted'),
-    (26, 'future_continuous', 'indicative', 'active', '2p', 'θα αγαπάτε', false, 'contracted'),
-    (26, 'future_continuous', 'indicative', 'active', '3p', 'θα αγαπούν', false, 'contracted'),
-    
-    -- Variante avec -νε mobile
-    (26, 'future_continuous', 'indicative', 'active', '3p', 'θα αγαπούνε', true, 'contracted'),
-    
-    -- Groupe 'modern'
-    (26, 'future_continuous', 'indicative', 'active', '1s', 'θα αγαπάω', true, 'modern'),
-    (26, 'future_continuous', 'indicative', 'active', '2s', 'θα αγαπάς', false, 'modern'),
-    (26, 'future_continuous', 'indicative', 'active', '3s', 'θα αγαπάει', true, 'modern'),
-    (26, 'future_continuous', 'indicative', 'active', '1p', 'θα αγαπάμε', true, 'modern'),
-    (26, 'future_continuous', 'indicative', 'active', '2p', 'θα αγαπάτε', false, 'modern'),
-    (26, 'future_continuous', 'indicative', 'active', '3p', 'θα αγαπάνε', true, 'modern');
-
--- ========================================
 -- 5. PARFAIT INDICATIF ACTIF
 -- ========================================
 
@@ -562,7 +537,7 @@ VALUES
     (26, 'present', 'subjunctive', 'active', '3p', 'να αγαπούν', false, 'standard'),
     
     -- Variante mobile -νε
-    (26, 'present', 'subjunctive', 'active', '3p', 'να αγαπούνε', true, 'movable_ne'),
+    (26, 'present', 'subjunctive', 'active', '3p', 'να αγαπούνε', true, 'movable_ne');
 
     -- Groupe 'modern'
     (26, 'present', 'subjunctive', 'active', '1s', 'να αγαπάω', true, 'modern'),
@@ -588,22 +563,6 @@ VALUES
     
     -- Variante mobile -νε
     (26, 'aorist', 'subjunctive', 'active', '3p', 'να αγαπήσουνε', true, 'movable_ne');
-
--- ========================================
--- NOUVEAU : SUBJONCTIF PLUS-QUE-PARFAIT ACTIF
--- ========================================
-
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
-VALUES 
-    (26, 'pluperfect', 'subjunctive', 'active', '1s', 'να έχω αγαπήσει', false, 'standard'),
-    (26, 'pluperfect', 'subjunctive', 'active', '2s', 'να έχεις αγαπήσει', false, 'standard'),
-    (26, 'pluperfect', 'subjunctive', 'active', '3s', 'να έχει αγαπήσει', false, 'standard'),
-    (26, 'pluperfect', 'subjunctive', 'active', '1p', 'να έχουμε αγαπήσει', false, 'standard'),
-    (26, 'pluperfect', 'subjunctive', 'active', '2p', 'να έχετε αγαπήσει', false, 'standard'),
-    (26, 'pluperfect', 'subjunctive', 'active', '3p', 'να έχουν αγαπήσει', false, 'standard'),
-    
-    -- Variante mobile -νε
-    (26, 'pluperfect', 'subjunctive', 'active', '3p', 'να έχουνε αγαπήσει', true, 'movable_ne');
 
 -- ========================================
 -- 9. IMPÉRATIF ACTIF
@@ -678,19 +637,6 @@ VALUES
     (26, 'imperfect', 'indicative', 'mediopassive', '3p', 'αγαπιόνταν', true, 'contracted');
 
 -- ========================================
--- NOUVEAU : IMPARFAIT MÉDIO-PASSIF ARCHAÏQUE (Katharevousa)
--- ========================================
-
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
-VALUES 
-    (26, 'imperfect', 'indicative', 'mediopassive', '1s', 'αγαπώμην', true, 'archaic'),
-    (26, 'imperfect', 'indicative', 'mediopassive', '2s', 'αγαπώσο', true, 'archaic'),
-    (26, 'imperfect', 'indicative', 'mediopassive', '3s', 'αγαπάτο', true, 'archaic'),
-    (26, 'imperfect', 'indicative', 'mediopassive', '1p', 'αγαπώμεθα', true, 'archaic'),
-    (26, 'imperfect', 'indicative', 'mediopassive', '2p', 'αγαπάσθε', true, 'archaic'),
-    (26, 'imperfect', 'indicative', 'mediopassive', '3p', 'αγαπώντο', true, 'archaic');
-
--- ========================================
 -- 14. AORISTE INDICATIF MÉDIO-PASSIF
 -- ========================================
 
@@ -723,23 +669,6 @@ VALUES
     
     -- Variante mobile -νε
     (26, 'future', 'indicative', 'mediopassive', '3p', 'θα αγαπηθούνε', true, 'movable_ne');
-
--- ========================================
--- NOUVEAU : FUTUR CONTINU MÉDIO-PASSIF
--- ========================================
-
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
-VALUES 
-    (26, 'future_continuous', 'indicative', 'mediopassive', '1s', 'θα αγαπιέμαι', false, 'standard'),
-    (26, 'future_continuous', 'indicative', 'mediopassive', '2s', 'θα αγαπιέσαι', false, 'standard'),
-    (26, 'future_continuous', 'indicative', 'mediopassive', '3s', 'θα αγαπιέται', false, 'standard'),
-    (26, 'future_continuous', 'indicative', 'mediopassive', '1p', 'θα αγαπιόμαστε', false, 'standard'),
-    (26, 'future_continuous', 'indicative', 'mediopassive', '2p', 'θα αγαπιέστε', false, 'standard'),
-    (26, 'future_continuous', 'indicative', 'mediopassive', '3p', 'θα αγαπιούνται', false, 'standard'),
-    
-    -- Variantes
-    (26, 'future_continuous', 'indicative', 'mediopassive', '2p', 'θα αγαπιόσαστε', true, 'oral'),
-    (26, 'future_continuous', 'indicative', 'mediopassive', '3p', 'θα αγαπιούνε', true, 'movable_ne');
 
 -- ========================================
 -- 16. PARFAIT INDICATIF MÉDIO-PASSIF
@@ -802,22 +731,6 @@ VALUES
     (26, 'aorist', 'imperative', 'mediopassive', '2p', 'αγαπηθείτε', false, 'standard');
 
 -- ========================================
--- NOUVEAU : SUBJONCTIF PLUS-QUE-PARFAIT MÉDIO-PASSIF
--- ========================================
-
-INSERT INTO conjugations (verb_id, tense, mood, voice, person, form, is_alternative_form, variant_group)
-VALUES 
-    (26, 'pluperfect', 'subjunctive', 'mediopassive', '1s', 'να έχω αγαπηθεί', false, 'standard'),
-    (26, 'pluperfect', 'subjunctive', 'mediopassive', '2s', 'να έχεις αγαπηθεί', false, 'standard'),
-    (26, 'pluperfect', 'subjunctive', 'mediopassive', '3s', 'να έχει αγαπηθεί', false, 'standard'),
-    (26, 'pluperfect', 'subjunctive', 'mediopassive', '1p', 'να έχουμε αγαπηθεί', false, 'standard'),
-    (26, 'pluperfect', 'subjunctive', 'mediopassive', '2p', 'να έχετε αγαπηθεί', false, 'standard'),
-    (26, 'pluperfect', 'subjunctive', 'mediopassive', '3p', 'να έχουν αγαπηθεί', false, 'standard'),
-    
-    -- Variante mobile -νε
-    (26, 'pluperfect', 'subjunctive', 'mediopassive', '3p', 'να έχουνε αγαπηθεί', true, 'movable_ne');
-
--- ========================================
 -- 20. PARTICIPE MÉDIO-PASSIF
 -- ========================================
 
@@ -846,283 +759,282 @@ INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALU
 
 -- FRANÇAIS ACTIF - PRÉSENT INDICATIF
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '1s', 'aime'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '2s', 'aimes'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3s', 'aime'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '1p', 'aimons'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '2p', 'aimez'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3p', 'aiment');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '1s', 'j''aime'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '2s', 'tu aimes'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3s', 'il/elle aime'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '1p', 'nous aimons'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '2p', 'vous aimez'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'active', '3p', 'ils/elles aiment');
 
 -- FRANÇAIS ACTIF - IMPARFAIT
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '1s', 'aimais'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '2s', 'aimais'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '3s', 'aimait'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '1p', 'aimions'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '2p', 'aimiez'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '3p', 'aimaient');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '1s', 'j''aimais'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '2s', 'tu aimais'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '3s', 'il/elle aimait'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '1p', 'nous aimions'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '2p', 'vous aimiez'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'active', '3p', 'ils/elles aimaient');
 
 -- FRANÇAIS ACTIF - FUTUR
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '1s', 'aimerai'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '2s', 'aimeras'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '3s', 'aimera'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '1p', 'aimerons'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '2p', 'aimerez'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '3p', 'aimeront');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '1s', 'j''aimerai'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '2s', 'tu aimeras'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '3s', 'il/elle aimera'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '1p', 'nous aimerons'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '2p', 'vous aimerez'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'active', '3p', 'ils/elles aimeront');
 
 -- FRANÇAIS ACTIF - PASSÉ SIMPLE
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'active', '1s', 'aimai'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'active', '2s', 'aimas'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'active', '3s', 'aima'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'active', '1p', 'aimâmes'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'active', '2p', 'aimâtes'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'active', '3p', 'aimèrent');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'active', '1s', 'j''aimai'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'active', '2s', 'tu aimas'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'active', '3s', 'il/elle aima'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'active', '1p', 'nous aimâmes'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'active', '2p', 'vous aimâtes'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'active', '3p', 'ils/elles aimèrent');
 
 -- FRANÇAIS ACTIF - PASSÉ COMPOSÉ
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'active', '1s', 'ai aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'active', '2s', 'as aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'active', '3s', 'a aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'active', '1p', 'avons aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'active', '2p', 'avez aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'active', '3p', 'ont aimé');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'active', '1s', 'j''ai aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'active', '2s', 'tu as aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'active', '3s', 'il/elle a aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'active', '1p', 'nous avons aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'active', '2p', 'vous avez aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'active', '3p', 'ils/elles ont aimé');
 
 -- FRANÇAIS ACTIF - PLUS-QUE-PARFAIT
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '1s', 'avais aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '2s', 'avais aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '3s', 'avait aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '1p', 'avions aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '2p', 'aviez aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '3p', 'avaient aimé');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '1s', 'j''avais aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '2s', 'tu avais aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '3s', 'il/elle avait aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '1p', 'nous avions aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '2p', 'vous aviez aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'active', '3p', 'ils/elles avaient aimé');
 
 -- FRANÇAIS ACTIF - PASSÉ ANTÉRIEUR
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'active', '1s', 'eus aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'active', '2s', 'eus aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'active', '3s', 'eut aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'active', '1p', 'eûmes aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'active', '2p', 'eûtes aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'active', '3p', 'eurent aimé');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'active', '1s', 'j''eus aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'active', '2s', 'tu eus aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'active', '3s', 'il/elle eut aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'active', '1p', 'nous eûmes aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'active', '2p', 'vous eûtes aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'active', '3p', 'ils/elles eurent aimé');
 
 -- FRANÇAIS ACTIF - FUTUR ANTÉRIEUR
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'active', '1s', 'aurai aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'active', '2s', 'auras aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'active', '3s', 'aura aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'active', '1p', 'aurons aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'active', '2p', 'aurez aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'active', '3p', 'auront aimé');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'active', '1s', 'j''aurai aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'active', '2s', 'tu auras aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'active', '3s', 'il/elle aura aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'active', '1p', 'nous aurons aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'active', '2p', 'vous aurez aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'active', '3p', 'ils/elles auront aimé');
 
 -- FRANÇAIS ACTIF - SUBJONCTIF PRÉSENT
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'active', '1s', 'aime'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'active', '2s', 'aimes'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'active', '3s', 'aime'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'active', '1p', 'aimions'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'active', '2p', 'aimiez'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'active', '3p', 'aiment');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'active', '1s', 'que j''aime'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'active', '2s', 'que tu aimes'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'active', '3s', 'qu''il/elle aime'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'active', '1p', 'que nous aimions'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'active', '2p', 'que vous aimiez'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'active', '3p', 'qu''ils/elles aiment');
 
 -- FRANÇAIS ACTIF - SUBJONCTIF IMPARFAIT
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'active', '1s', 'aimasse'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'active', '2s', 'aimasses'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'active', '3s', 'aimât'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'active', '1p', 'aimassions'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'active', '2p', 'aimassiez'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'active', '3p', 'aimassent');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'active', '1s', 'que j''aimasse'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'active', '2s', 'que tu aimasses'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'active', '3s', 'qu''il/elle aimât'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'active', '1p', 'que nous aimassions'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'active', '2p', 'que vous aimassiez'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'active', '3p', 'qu''ils/elles aimassent');
 
 -- FRANÇAIS ACTIF - SUBJONCTIF PASSÉ
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'active', '1s', 'aie aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'active', '2s', 'aies aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'active', '3s', 'ait aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'active', '1p', 'ayons aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'active', '2p', 'ayez aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'active', '3p', 'aient aimé');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'active', '1s', 'que j''aie aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'active', '2s', 'que tu aies aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'active', '3s', 'qu''il/elle ait aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'active', '1p', 'que nous ayons aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'active', '2p', 'que vous ayez aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'active', '3p', 'qu''ils/elles aient aimé');
 
 -- FRANÇAIS ACTIF - SUBJONCTIF PLUS-QUE-PARFAIT
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'active', '1s', 'eusse aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'active', '2s', 'eusses aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'active', '3s', 'eût aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'active', '1p', 'eussions aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'active', '2p', 'eussiez aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'active', '3p', 'eussent aimé');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'active', '1s', 'que j''eusse aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'active', '2s', 'que tu eusses aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'active', '3s', 'qu''il/elle eût aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'active', '1p', 'que nous eussions aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'active', '2p', 'que vous eussiez aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'active', '3p', 'qu''ils/elles eussent aimé');
 
 -- FRANÇAIS ACTIF - CONDITIONNEL PRÉSENT
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'active', '1s', 'aimerais'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'active', '2s', 'aimerais'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'active', '3s', 'aimerait'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'active', '1p', 'aimerions'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'active', '2p', 'aimeriez'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'active', '3p', 'aimeraient');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'active', '1s', 'j''aimerais'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'active', '2s', 'tu aimerais'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'active', '3s', 'il/elle aimerait'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'active', '1p', 'nous aimerions'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'active', '2p', 'vous aimeriez'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'active', '3p', 'ils/elles aimeraient');
 
 -- FRANÇAIS ACTIF - CONDITIONNEL PASSÉ 1
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'active', '1s', 'aurais aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'active', '2s', 'aurais aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'active', '3s', 'aurait aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'active', '1p', 'aurions aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'active', '2p', 'auriez aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'active', '3p', 'auraient aimé');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'active', '1s', 'j''aurais aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'active', '2s', 'tu aurais aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'active', '3s', 'il/elle aurait aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'active', '1p', 'nous aurions aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'active', '2p', 'vous auriez aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'active', '3p', 'ils/elles auraient aimé');
 
 -- FRANÇAIS ACTIF - CONDITIONNEL PASSÉ 2
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'active', '1s', 'eusse aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'active', '2s', 'eusses aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'active', '3s', 'eût aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'active', '1p', 'eussions aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'active', '2p', 'eussiez aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'active', '3p', 'eussent aimé');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'active', '1s', 'j''eusse aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'active', '2s', 'tu eusses aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'active', '3s', 'il/elle eût aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'active', '1p', 'nous eussions aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'active', '2p', 'vous eussiez aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'active', '3p', 'ils/elles eussent aimé');
 
 -- FRANÇAIS ACTIF - IMPÉRATIF
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
 ((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'active', '2s', 'aime'),
 ((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'active', '1p', 'aimons'),
 ((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'active', '2p', 'aimez');
-
 -- ========================================
--- FRANÇAIS PASSIF - TOUS LES TEMPS (SANS PRONOMS)
+-- FRANÇAIS PASSIF - TOUS LES TEMPS
 -- ========================================
 
 -- FRANÇAIS PASSIF - PRÉSENT INDICATIF
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'passive', '1s', 'suis aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'passive', '2s', 'es aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'passive', '3s', 'est aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'passive', '1p', 'sommes aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'passive', '2p', 'êtes aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'passive', '3p', 'sont aimés');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'passive', '1s', 'je suis aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'passive', '2s', 'tu es aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'passive', '3s', 'il/elle est aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'passive', '1p', 'nous sommes aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'passive', '2p', 'vous êtes aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'indicative', 'passive', '3p', 'ils/elles sont aimés');
 
 -- FRANÇAIS PASSIF - IMPARFAIT
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'passive', '1s', 'étais aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'passive', '2s', 'étais aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'passive', '3s', 'était aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'passive', '1p', 'étions aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'passive', '2p', 'étiez aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'passive', '3p', 'étaient aimés');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'passive', '1s', 'j''étais aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'passive', '2s', 'tu étais aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'passive', '3s', 'il/elle était aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'passive', '1p', 'nous étions aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'passive', '2p', 'vous étiez aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'indicative', 'passive', '3p', 'ils/elles étaient aimés');
 
 -- FRANÇAIS PASSIF - FUTUR
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'passive', '1s', 'serai aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'passive', '2s', 'seras aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'passive', '3s', 'sera aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'passive', '1p', 'serons aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'passive', '2p', 'serez aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'passive', '3p', 'seront aimés');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'passive', '1s', 'je serai aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'passive', '2s', 'tu seras aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'passive', '3s', 'il/elle sera aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'passive', '1p', 'nous serons aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'passive', '2p', 'vous serez aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future', 'indicative', 'passive', '3p', 'ils/elles seront aimés');
 
 -- FRANÇAIS PASSIF - PASSÉ SIMPLE
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'passive', '1s', 'fus aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'passive', '2s', 'fus aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'passive', '3s', 'fut aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'passive', '1p', 'fûmes aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'passive', '2p', 'fûtes aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'passive', '3p', 'furent aimés');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'passive', '1s', 'je fus aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'passive', '2s', 'tu fus aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'passive', '3s', 'il/elle fut aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'passive', '1p', 'nous fûmes aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'passive', '2p', 'vous fûtes aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'simple_past', 'indicative', 'passive', '3p', 'ils/elles furent aimés');
 
 -- FRANÇAIS PASSIF - PASSÉ COMPOSÉ
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'passive', '1s', 'ai été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'passive', '2s', 'as été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'passive', '3s', 'a été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'passive', '1p', 'avons été aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'passive', '2p', 'avez été aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'passive', '3p', 'ont été aimés');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'passive', '1s', 'j''ai été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'passive', '2s', 'tu as été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'passive', '3s', 'il/elle a été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'passive', '1p', 'nous avons été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'passive', '2p', 'vous avez été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'compound_past', 'indicative', 'passive', '3p', 'ils/elles ont été aimés');
 
 -- FRANÇAIS PASSIF - PLUS-QUE-PARFAIT
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'passive', '1s', 'avais été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'passive', '2s', 'avais été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'passive', '3s', 'avait été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'passive', '1p', 'avions été aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'passive', '2p', 'aviez été aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'passive', '3p', 'avaient été aimés');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'passive', '1s', 'j''avais été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'passive', '2s', 'tu avais été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'passive', '3s', 'il/elle avait été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'passive', '1p', 'nous avions été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'passive', '2p', 'vous aviez été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'indicative', 'passive', '3p', 'ils/elles avaient été aimés');
 
 -- FRANÇAIS PASSIF - PASSÉ ANTÉRIEUR
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'passive', '1s', 'eus été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'passive', '2s', 'eus été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'passive', '3s', 'eut été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'passive', '1p', 'eûmes été aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'passive', '2p', 'eûtes été aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'passive', '3p', 'eurent été aimés');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'passive', '1s', 'j''eus été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'passive', '2s', 'tu eus été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'passive', '3s', 'il/elle eut été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'passive', '1p', 'nous eûmes été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'passive', '2p', 'vous eûtes été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_anterior', 'indicative', 'passive', '3p', 'ils/elles eurent été aimés');
 
 -- FRANÇAIS PASSIF - FUTUR ANTÉRIEUR
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'passive', '1s', 'aurai été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'passive', '2s', 'auras été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'passive', '3s', 'aura été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'passive', '1p', 'aurons été aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'passive', '2p', 'aurez été aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'passive', '3p', 'auront été aimés');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'passive', '1s', 'j''aurai été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'passive', '2s', 'tu auras été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'passive', '3s', 'il/elle aura été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'passive', '1p', 'nous aurons été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'passive', '2p', 'vous aurez été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'future_anterior', 'indicative', 'passive', '3p', 'ils/elles auront été aimés');
 
 -- FRANÇAIS PASSIF - SUBJONCTIF PRÉSENT
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'passive', '1s', 'sois aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'passive', '2s', 'sois aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'passive', '3s', 'soit aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'passive', '1p', 'soyons aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'passive', '2p', 'soyez aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'passive', '3p', 'soient aimés');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'passive', '1s', 'que je sois aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'passive', '2s', 'que tu sois aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'passive', '3s', 'qu''il/elle soit aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'passive', '1p', 'que nous soyons aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'passive', '2p', 'que vous soyez aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'subjunctive', 'passive', '3p', 'qu''ils/elles soient aimés');
 
 -- FRANÇAIS PASSIF - SUBJONCTIF IMPARFAIT
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'passive', '1s', 'fusse aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'passive', '2s', 'fusses aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'passive', '3s', 'fût aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'passive', '1p', 'fussions aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'passive', '2p', 'fussiez aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'passive', '3p', 'fussent aimés');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'passive', '1s', 'que je fusse aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'passive', '2s', 'que tu fusses aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'passive', '3s', 'qu''il/elle fût aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'passive', '1p', 'que nous fussions aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'passive', '2p', 'que vous fussiez aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'imperfect', 'subjunctive', 'passive', '3p', 'qu''ils/elles fussent aimés');
 
 -- FRANÇAIS PASSIF - SUBJONCTIF PASSÉ
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'passive', '1s', 'aie été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'passive', '2s', 'aies été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'passive', '3s', 'ait été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'passive', '1p', 'ayons été aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'passive', '2p', 'ayez été aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'passive', '3p', 'aient été aimés');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'passive', '1s', 'que j''aie été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'passive', '2s', 'que tu aies été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'passive', '3s', 'qu''il/elle ait été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'passive', '1p', 'que nous ayons été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'passive', '2p', 'que vous ayez été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past', 'subjunctive', 'passive', '3p', 'qu''ils/elles aient été aimés');
 
 -- FRANÇAIS PASSIF - SUBJONCTIF PLUS-QUE-PARFAIT
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'passive', '1s', 'eusse été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'passive', '2s', 'eusses été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'passive', '3s', 'eût été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'passive', '1p', 'eussions été aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'passive', '2p', 'eussiez été aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'passive', '3p', 'eussent été aimés');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'passive', '1s', 'que j''eusse été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'passive', '2s', 'que tu eusses été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'passive', '3s', 'qu''il/elle eût été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'passive', '1p', 'que nous eussions été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'passive', '2p', 'que vous eussiez été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'pluperfect', 'subjunctive', 'passive', '3p', 'qu''ils/elles eussent été aimés');
 
 -- FRANÇAIS PASSIF - CONDITIONNEL PRÉSENT
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'passive', '1s', 'serais aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'passive', '2s', 'serais aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'passive', '3s', 'serait aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'passive', '1p', 'serions aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'passive', '2p', 'seriez aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'passive', '3p', 'seraient aimés');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'passive', '1s', 'je serais aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'passive', '2s', 'tu serais aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'passive', '3s', 'il/elle serait aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'passive', '1p', 'nous serions aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'passive', '2p', 'vous seriez aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'conditional', 'passive', '3p', 'ils/elles seraient aimés');
 
 -- FRANÇAIS PASSIF - CONDITIONNEL PASSÉ 1
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'passive', '1s', 'aurais été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'passive', '2s', 'aurais été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'passive', '3s', 'aurait été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'passive', '1p', 'aurions été aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'passive', '2p', 'auriez été aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'passive', '3p', 'auraient été aimés');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'passive', '1s', 'j''aurais été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'passive', '2s', 'tu aurais été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'passive', '3s', 'il/elle aurait été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'passive', '1p', 'nous aurions été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'passive', '2p', 'vous auriez été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_1', 'conditional', 'passive', '3p', 'ils/elles auraient été aimés');
 
 -- FRANÇAIS PASSIF - CONDITIONNEL PASSÉ 2
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'passive', '1s', 'eusse été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'passive', '2s', 'eusses été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'passive', '3s', 'eût été aimé'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'passive', '1p', 'eussions été aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'passive', '2p', 'eussiez été aimés'),
-((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'passive', '3p', 'eussent été aimés');
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'passive', '1s', 'j''eusse été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'passive', '2s', 'tu eusses été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'passive', '3s', 'il/elle eût été aimé'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'passive', '1p', 'nous eussions été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'passive', '2p', 'vous eussiez été aimés'),
+((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'past_2', 'conditional', 'passive', '3p', 'ils/elles eussent été aimés');
 
 -- FRANÇAIS PASSIF - IMPÉRATIF
 INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALUES

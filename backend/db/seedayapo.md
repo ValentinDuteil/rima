@@ -562,7 +562,7 @@ VALUES
     (26, 'present', 'subjunctive', 'active', '3p', 'να αγαπούν', false, 'standard'),
     
     -- Variante mobile -νε
-    (26, 'present', 'subjunctive', 'active', '3p', 'να αγαπούνε', true, 'movable_ne'),
+    (26, 'present', 'subjunctive', 'active', '3p', 'να αγαπούνε', true, 'movable_ne');
 
     -- Groupe 'modern'
     (26, 'present', 'subjunctive', 'active', '1s', 'να αγαπάω', true, 'modern'),
