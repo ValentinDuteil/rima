@@ -6,7 +6,7 @@ export const variantLabels = {
   standard: 'Standard',
   movable_ne: 'Avec -νε',
   oral: 'Oral',
-  formal: 'Formel'
+  formal: 'Formel',
   archaic: 'Archaïque'
 };
 
@@ -32,12 +32,29 @@ const personLabelsGreek = {
   '3p': 'αυτοί/ές'
 };
 
-export function translatePerson(person, language = 'greek') {
+// Fonction pour gérer l'apostrophe
+function applyElision(pronoun, verb) {
+  // Si le verbe commence par une voyelle ou un h muet
+  if (/^[aeiouhéèêàâ]/i.test(verb)) {
+    if (pronoun === 'je') return "j'";
+    // 'tu' peut aussi s'élider dans certains cas rares (ex: "t'aimes" en poésie)
+    // mais en français standard moderne, on garde "tu"
+  }
+  return pronoun;
+}
+
+export function translatePerson(person, language = 'greek', nextWord = '') {
   if (!person || person === 'null') return '';
 
   let labels;
   if (language === 'french') {
     labels = personLabelsFrench;
+    const pronoun = labels[person] || person;
+    
+    if (nextWord) {
+      return applyElision(pronoun, nextWord);
+    }
+    return pronoun;
   } else {
     labels = personLabelsGreek;
   }

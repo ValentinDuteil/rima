@@ -73,7 +73,7 @@
 
 <!-- ⭐ FILTRES STATIQUES -->
 <div class="filters-container">
-<div class="filter-group">
+  <div class="filter-group">
     <label for="filter-lang">Langue :</label>
     <select id="filter-lang" disabled>
       <option value="both">Grec + Français</option>
@@ -167,7 +167,8 @@
             <div class="forms">
               {#each Object.entries(persons) as [person, forms]}
                 <div class="form-item">
-                  <span class="person">{translatePerson(person, "french")}</span
+                  <span class="person"
+                    >{translatePerson(person, "french", forms[0])}</span
                   >
                   <span class="form">{forms.join(" / ")}</span>
                 </div>
