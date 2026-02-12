@@ -1,4 +1,4 @@
-import pool from '../db/connection.js'
+import pool from '../../db/connection.js'
 
 // GROUP BY nécessaire car on utilise MIN() pour gérer les verbes avec plusieurs traductions
 // GROUP BY obligatoire pour éliminer les doublons (un verbe peut avoir plusieurs traductions)
