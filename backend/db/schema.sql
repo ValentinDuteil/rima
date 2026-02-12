@@ -7,9 +7,15 @@ DROP TABLE IF EXISTS verbs;
 CREATE TABLE users
 (
     id SERIAL PRIMARY KEY NOT NULL,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
 );
+
+-- Index explicite (PostgreSQL le crée déjà avec UNIQUE, 
+-- mais facilite la recherche par email (login))
+CREATE INDEX idx_users_email ON users(email);
 
 CREATE TABLE verbs
 (
@@ -52,8 +58,10 @@ CREATE TABLE user_verbs
     id SERIAL PRIMARY KEY NOT NULL,
     user_id INT NOT NULL,
     verb_id INT NOT NULL,
-    status VARCHAR(20),
+    status VARCHAR(20) DEFAULT 'to_learn',
     date_added TIMESTAMP DEFAULT NOW(),
+
+    UNIQUE(user_id, verb_id),
 
     CONSTRAINT fk_user_verbs_users
         FOREIGN KEY (user_id)

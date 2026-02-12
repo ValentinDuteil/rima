@@ -10,11 +10,23 @@
 DROP TABLE IF EXISTS french_conjugations CASCADE;
 DROP TABLE IF EXISTS conjugations CASCADE;
 DROP TABLE IF EXISTS translations CASCADE;
+DROP TABLE IF EXISTS user_verbs CASCADE;
+DROP TABLE IF EXISTS users CASCADE; 
 DROP TABLE IF EXISTS verbs CASCADE;
 
 -- ========================================
 -- CRÉATION DES TABLES
 -- ========================================
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE INDEX idx_users_email ON users(email);
 
 CREATE TABLE verbs (
     id SERIAL PRIMARY KEY,
@@ -55,6 +67,26 @@ CREATE TABLE french_conjugations (
     is_alternative_form BOOLEAN DEFAULT FALSE,
     variant_group VARCHAR(20) DEFAULT 'standard',
     CONSTRAINT french_conjugations_verb_id_fkey FOREIGN KEY (verb_id) REFERENCES verbs(id) ON DELETE CASCADE
+);
+
+CREATE TABLE user_verbs (
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    verb_id INT NOT NULL,
+    status VARCHAR(20) DEFAULT 'to_learn',
+    date_added TIMESTAMP DEFAULT NOW(),
+    
+    UNIQUE(user_id, verb_id),
+
+    CONSTRAINT fk_user_verbs_users
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+    
+    CONSTRAINT fk_user_verbs_verbs
+        FOREIGN KEY (verb_id)
+        REFERENCES verbs(id)
+        ON DELETE CASCADE
 );
 
 -- ========================================
@@ -1129,6 +1161,21 @@ INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALU
 ((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'passive', '2s', 'sois aimé'),
 ((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'passive', '1p', 'soyons aimés'),
 ((SELECT id FROM verbs WHERE greek = 'αγαπάω'), 'present', 'imperative', 'passive', '2p', 'soyez aimés');
+
+-- ========================================
+-- USER DE TEST
+-- ========================================
+
+-- Email: test@rima.com
+-- Password: password123 (hash bidon)
+INSERT INTO users (email, password_hash) VALUES
+('test@rima.com', '$fake$hash$for$testing$only');
+
+-- Ajouter quelques verbes favoris au user de test
+INSERT INTO user_verbs (user_id, verb_id, status) VALUES
+(1, 26, 'learning'),  -- αγαπάω (aimer) - en cours d'apprentissage
+(1, 2, 'to_learn'),   -- γράφω (écrire) - à apprendre
+(1, 6, 'mastered');   -- αγοράζω (acheter) - maîtrisé
 
 -- ========================================
 -- PERMISSIONS POUR RIMA1
