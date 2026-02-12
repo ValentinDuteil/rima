@@ -1169,7 +1169,7 @@ INSERT INTO french_conjugations (verb_id, tense, mood, voice, person, form) VALU
 -- Email: test@rima.com
 -- Password: password123 (hash bidon)
 INSERT INTO users (email, password_hash) VALUES
-('test@rima.com', '$fake$hash$for$testing$only');
+('test@rima.com', '$argon2id$v=19$m=65536,t=3,p=4$+E1bH3rdbyS6XTeHMQo7zw$xisjw4lCYqsZX40QFkNB+VKu8DVIEeALQOdBkVVp9w4');
 
 -- Ajouter quelques verbes favoris au user de test
 INSERT INTO user_verbs (user_id, verb_id, status) VALUES
