@@ -3,6 +3,8 @@ import pool from '../db/connection.js';
 import cors from 'cors';
 
 import routes from './routes/index.js';
+import authRoutes from './routes/auth.routes.js';
+
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFound } from './middlewares/notFound.js';
 
@@ -10,6 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use('/api/auth', authRoutes);
 app.use('/api', routes);
 
 app.get('/', (req, res) => {
