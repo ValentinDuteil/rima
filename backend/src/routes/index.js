@@ -1,4 +1,4 @@
-import verbsRoutes from './verbs.js';
+import verbsRoutes from './verbs.routes.js';
 import { Router } from 'express';
 
 const router = Router();
