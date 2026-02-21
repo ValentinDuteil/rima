@@ -1,3 +1,5 @@
+import jwt from 'jsonwebtoken';
+import { jwtConfig } from '../config/jwt.js';
 import pool from '../../db/connection.js';
 import argon2 from 'argon2';
 
@@ -33,4 +35,15 @@ export async function createUser(email, password) {
 export async function verifyPassword(hash, password) {
   const isValid = await argon2.verify(hash, password);
   return isValid;
+}
+
+//JWT
+//===
+export function generateToken(user) {
+  const token = jwt.sign(
+    { id: user.id, email: user.email }, 
+    jwtConfig.secret,
+    { expiresIn: jwtConfig.expiresIn }
+  );
+  return token;
 }

@@ -35,6 +35,14 @@ export async function login(req, res) {
     throw new Errors.UnauthorizedError('Invalid Credentials');
   }
 
+  const token = authService.generateToken(existingUser);
+
+  res.cookie('token', token, {
+    httpOnly: true,    // inaccessible au JS
+    secure: false,     // true en production (HTTPS)
+    maxAge: 7 * 24 * 60 * 60 * 1000  // 7 jours
+  });
+
   res.status(200).json({
     message: 'Connected',
     user: {
