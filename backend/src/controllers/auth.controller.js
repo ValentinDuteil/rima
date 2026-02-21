@@ -4,14 +4,14 @@ import { loginSchema, signupSchema } from '../middlewares/validators.js';
 
 export async function signup(req, res) {
   const { email, password } = req.body;
-  
+
   const validatedData = signupSchema.parse({ email, password });
-  
+
   const existingUser = await authService.getUserByEmail(validatedData.email);
   if (existingUser) {
-  throw new Errors.ConflictError('Email already in use');
-}
-  
+    throw new Errors.ConflictError('Email already in use');
+  }
+
   const user = await authService.createUser(validatedData.email, validatedData.password);
   res.status(201).json({
     message: 'User created successfully',
@@ -26,13 +26,13 @@ export async function login(req, res) {
 
   const existingUser = await authService.getUserByEmail(validatedData.email)
   if (!existingUser) {
-    throw new Errors.UnauthorizedError('Invalide Credentials');
+    throw new Errors.UnauthorizedError('Invalid Credentials');
   }
 
   const isValid = await authService.verifyPassword(existingUser.password_hash, validatedData.password);
 
   if (!isValid) {
-    throw new Errors.UnauthorizedError('Invalide Credentials');
+    throw new Errors.UnauthorizedError('Invalid Credentials');
   }
 
   res.status(200).json({
@@ -40,6 +40,6 @@ export async function login(req, res) {
     user: {
       id: existingUser.id,
       email: existingUser.email
-  }
-});
+    }
+  });
 };
