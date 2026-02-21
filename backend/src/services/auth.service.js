@@ -27,3 +27,10 @@ export async function createUser(email, password) {
 
   return user;
 }
+
+//VERIFY PASSWORD
+//===============
+export async function verifyPassword(hash, password) {
+  const isValid = await argon2.verify(hash, password);
+  return isValid;
+}
