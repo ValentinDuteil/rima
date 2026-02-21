@@ -1,6 +1,6 @@
 import * as Errors from '../utils/errors.js';
 import * as authService from '../services/auth.service.js';
-import { signupSchema } from '../middlewares/validators.js';
+import { loginSchema, signupSchema } from '../middlewares/validators.js';
 
 export async function signup(req, res) {
   const { email, password } = req.body;
@@ -14,7 +14,32 @@ export async function signup(req, res) {
   
   const user = await authService.createUser(validatedData.email, validatedData.password);
   res.status(201).json({
-  message: 'User created successfully',
-  user: user
+    message: 'User created successfully',
+    user: user
+  });
+};
+
+export async function login(req, res) {
+  const { email, password } = req.body;
+
+  const validatedData = loginSchema.parse({ email, password });
+
+  const existingUser = await authService.getUserByEmail(validatedData.email)
+  if (!existingUser) {
+    throw new Errors.UnauthorizedError('Invalide Credentials');
+  }
+
+  const isValid = await authService.verifyPassword(existingUser.password_hash, validatedData.password);
+
+  if (!isValid) {
+    throw new Errors.UnauthorizedError('Invalide Credentials');
+  }
+
+  res.status(200).json({
+    message: 'Connected',
+    user: {
+      id: existingUser.id,
+      email: existingUser.email
+  }
 });
-}
+};
