@@ -5,7 +5,8 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "dev:all": "concurrently \"npm run dev\" \"cd ../backend && npm run dev\" --names \"front,back\" --prefix-colors \"blue,green\""
   },
   "keywords": [],
   "author": "",

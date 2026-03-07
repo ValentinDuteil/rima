@@ -1,6 +1,7 @@
 import express from 'express';
 import pool from '../db/connection.js';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 import routes from './routes/index.js';
 import authRoutes from './routes/auth.routes.js';
@@ -11,6 +12,7 @@ import { notFound } from './middlewares/notFound.js';
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/api/auth', authRoutes);
 app.use('/api', routes);
